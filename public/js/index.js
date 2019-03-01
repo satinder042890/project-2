@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $("#dropdown li").on("click",function(){
+    $("#dropdown1 li").on("click",function(){
         var colorValue=$(this).text();
         console.log(colorValue);
         $(".nav-wrapper").css("background-color",colorValue);
@@ -9,3 +9,11 @@ $(document).ready(function(){
 
 
 
+// document.addEventListener('DOMContentLoaded', function() {
+//     var elems = document.querySelectorAll('.dropdown-trigger');
+//     var instances = M.Dropdown.init(elems, options);
+//   });
+
+  // Or with jQuery
+
+  $('.dropdown-trigger').dropdown();
