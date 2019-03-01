@@ -2,17 +2,24 @@
 <html lang="en-us">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Money Man</title>
-    <link rel="stylesheet" type="text/css" href="css/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    
-
+  <meta charset="UTF-8">
+  <title>Money Man</title>
+  <link rel="stylesheet" type="text/css" href="css/materialize.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+  crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+  crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+  crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+  crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<body>
-<!-------------------------------------->
 
-<nav> 
+<body>
+  <nav>
     <div class="nav-wrapper">
             <a href="#" class="brand-logo center">Money Man</a>
             <ul class="right hide-on-med-and-down">
@@ -39,58 +46,38 @@
 
             
     </div>
-</nav>
-<ul id = "dropdown" class = "dropdown-content">
-    <li><a href = "#">Red</a></li>
-    <li><a href = "#">Orange</a></li>
-    <li><a href = "#">Teal</a></li>
-    <li><a href = "#">Green</a></li>
-    <li><a href = "#">Black</a></li>
-    <li><a href = "#">Purple</a></li>
- </ul>
- 
- 
-
-
+  </nav>
 
   <ul id="slide-out" class="sidenav">
-    <li><div class="user-view">
-      <div class="background">
-        <img src="images/office.jpg">
+    <li>
+      <div class="user-view">
+        <h3 id="username">Username</h3>
+        <h5 id="total">$1000</h5>
       </div>
-      <a href="#user"><img class="circle" src="images/yuna.jpg"></a>
-      <a href="#name"><span class="white-text name">John Doe</span></a>
-      <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
-    </div></li>
-    <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
-    <li><a href="#!">Second Link</a></li>
-    <li><div class="divider"></div></li>
-    <li><a class="subheader">Subheader</a></li>
-    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
-  </ul>
-  <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-        
-<!-------------------------------------->
-
-<!-------------------------------------->
-<footer class="page-footer" id="foot">
-    <div class="contatiner">
-        <div class="row">
-            <div class="footer-copyright">
-                    <div class="container">
-                    © 2019 Copyright Satinder, Ryan, Amber & Edgar
-                    <a class="grey-text text-lighten-4 right" href="#!">links go here</a>
-                    </div>
-            </div>
+      <div class="divider"></div>
+    </li>
+    <li>
+      <div class="dropdown">
+        <li><a class="dropdown-toggle" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          View Expenses
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+          <button class="dropdown-item" type="button">Weekly</button>
+          <button class="dropdown-item" type="button">Monthly</button>
+          <button class="dropdown-item" type="button">Yearly</button>
         </div>
-    </div>
-</footer>
-<!-------------------------------------->
-<script type = "text/javascript" src = "js/jquery-3.3.1.min.js"></script> 
-    <script src="js/materialize.min.js"></script>
-    
-    <script src="js/index.js"></script>
-
+      </div>
+    </li>
+    <li><a href="#!">Enter New Expenses</a></li>
+    <li>
+    </li>
+    <li><a href="#!">Update Monthly Income</a></li>
+    <li><a href="#!">Delete Expenses</a></li>
+  </ul>
 
 </body>
+
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script src="js/materialize.min.js"></script>
+<script src="js/index.js"></script>
 </html>

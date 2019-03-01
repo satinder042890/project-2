@@ -13,3 +13,11 @@ body {
     bottom: 0;
     width: 100%;
 }
+
+.dropdown-trigger {
+  color: white;
+}
+
+a:hover {
+  color: white;
+}
