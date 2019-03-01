@@ -22,7 +22,8 @@ module.exports = function(sequelize, DataTypes) {
             }
         },
         monthlyIncome: {
-            type: DataTypes.INTEGER
+            type: DataTypes.INTEGER,
+            allowNull: false
         }
     });
     return userSignUp;
