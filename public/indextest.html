@@ -6,89 +6,52 @@
     <title>Money Man</title>
     <link rel="stylesheet" type="text/css" href="css/materialize.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 </head>
+
 <body>
-<!-------------------------------------->
-
-<nav> 
-    <div class="nav-wrapper">
-            <a href="#" class="brand-logo center">Money Man</a>
-            <ul class="right hide-on-med-and-down">
-               <!-- <a class = "btn dropdown-button" href = "#" data-activates = "dropdown">Personalize
-                  <i class = "mdi-navigation-arrow-drop-down right"></i></a>	 -->
-                  <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Personalize</a>
-
-                  <!-- Dropdown Structure -->
-                  <ul id='dropdown1' class='dropdown-content'>
-                    <li><a href="#!">Red</a></li>
-                    <li><a href="#!">Black</a></li>
-                    <li><a href="#!">Orange</a></li>
-                    <li><a href="#!">Green</a></li>
-                    <li><a href="#!">Teal</a></li>
-                    <li><a href="#!">Purple</a></li>
-                    
-                  </ul>
-
-                <li><a class="waves-effect waves-light btn">Logout</a></li>
-                
-            </ul>
-
-            
+  <nav>
+    <div class="nav-wrapper container">
+      <button class="sidenav-trigger" data-target="slide-out"><i class="fas fa-bars"></i></button>
+      <a href="index.html" class="brand-logo">Budgetter</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a class="waves-effect waves-light btn">Logout</a></li>
+        <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Personalize</a>
+        <!-- Dropdown Structure -->
+        <ul id='dropdown1' class='dropdown-content'>
+          <li><a href="#!">Red</a></li>
+          <li><a href="#!">Black</a></li>
+          <li><a href="#!">Orange</a></li>
+          <li><a href="#!">Green</a></li>
+          <li><a href="#!">Teal</a></li>
+          <li><a href="#!">Purple</a></li>
+        </ul>
+      </ul>
     </div>
-</nav>
-<ul id = "dropdown" class = "dropdown-content">
-    <li><a href = "#">Red</a></li>
-    <li><a href = "#">Orange</a></li>
-    <li><a href = "#">Teal</a></li>
-    <li><a href = "#">Green</a></li>
-    <li><a href = "#">Black</a></li>
-    <li><a href = "#">Purple</a></li>
- </ul>
- 
- 
-
-
+  </nav>
 
   <ul id="slide-out" class="sidenav">
-    <li><div class="user-view">
-      <div class="background">
-        <img src="images/office.jpg">
+    <li>
+      <div class="user-view">
+        <div class="background">
+          <a href="#name"><span class="white-text name">John Doe</span></a>
+          <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
+        </div>
       </div>
-      <a href="#user"><img class="circle" src="images/yuna.jpg"></a>
-      <a href="#name"><span class="white-text name">John Doe</span></a>
-      <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
-    </div></li>
+    </li>
     <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
     <li><a href="#!">Second Link</a></li>
-    <li><div class="divider"></div></li>
+    <li>
+      <div class="divider"></div>
+    </li>
     <li><a class="subheader">Subheader</a></li>
     <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
   </ul>
-  <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-        
-<!-------------------------------------->
 
-<!-------------------------------------->
-<footer class="page-footer" id="foot">
-    <div class="contatiner">
-        <div class="row">
-            <div class="footer-copyright">
-                    <div class="container">
-                    © 2019 Copyright Satinder, Ryan, Amber & Edgar
-                    <a class="grey-text text-lighten-4 right" href="#!">links go here</a>
-                    </div>
-            </div>
-        </div>
-    </div>
-</footer>
-<!-------------------------------------->
+</body>
+
 <script type = "text/javascript" src = "js/jquery-3.3.1.min.js"></script> 
     <script src="js/materialize.min.js"></script>
     
     <script src="js/index.js"></script>
-
-
-</body>
 </html>
