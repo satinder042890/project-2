@@ -13,3 +13,9 @@ $(document).ready(function () {
 });
 
 $('.dropdown-trigger2').dropdown();
+$(document).ready(function(){
+  $('.modal').modal();
+});
+$(document).ready(function(){
+  $('select').formSelect();
+});

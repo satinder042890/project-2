@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Money Man</title>
+  <title>Main</title>
   <link rel="stylesheet" type="text/css" href="css/materialize.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
   crossorigin="anonymous">
@@ -59,13 +59,48 @@
         </div>
       </div>
     </li>
-    <li><a href="#!">Enter New Expenses</a></li>
+    <li><a class="modal-trigger" href="#modal1"">Enter New Expenses</a></li>
     <li>
     </li>
     <li><a href="#!">Update Monthly Income</a></li>
     <li><a href="#!">Delete Expenses</a></li>
   </ul>
+  <br>
+  <div class="container">
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Enter Expense</h4>
+      <div class="row">
+        <form class="col s12">
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="addexpense-amount" type="text">
+              <label for="amount">Amount</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="addexpense-note" type="text">
+              <label for="notes">Notes</label>
+            </div>
+          </div>
+          <br>
+          <select class="browser-default">
+              <option value="" disabled selected>Choose your category</option>
+            <option value="bills">Bills</option>
+            <option value="food">Food</option>
+            <option value="entertainment">Entertainment</option>
+          </select>
+        </form>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Add</a>
+    </div>
+  </div>
+  </div>
 
+  
 </body>
 
 <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
