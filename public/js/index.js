@@ -51,5 +51,10 @@ $(document).ready(function(){
 
 
 
+$('.dropdown-trigger').dropdown();
 
+$(document).ready(function () {
+  $('.sidenav').sidenav();
+});
 
+$('.dropdown-trigger2').dropdown();
