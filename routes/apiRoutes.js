@@ -1,6 +1,7 @@
-// const db = require("../models");
+const db = require("../models");
 
-// module.exports = function(app) {
+module.exports = function(app) {
 
+    app.get("")
     
-// }
+}
