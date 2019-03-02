@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $("#register").on("click",newUserDetails);
+    $("#register-button").on("click",newUserDetails);
 })
 //function to store new user details.
 function newUserDetails(){
@@ -9,8 +9,8 @@ function newUserDetails(){
     if(($("#username").val()) === ""){
         alert("please enter valid username");
     } 
-    else if(pwd === ""){
-        alert("please set your password");
+    else if(pwd === "" || pwd.length < 6){
+        alert("please set your password to more than 6 characters");
     } 
     else if(($("#monthlyIncome").val()) === ""){
         alert("please enter your monthly Income");
@@ -33,3 +33,13 @@ function newUserDetails(){
     //   })  
     // }
 }
+
+// function checkPass() {
+//     var checkPass=$("#password").val();
+
+//     if (checkPass.length < 6) {
+//         alert("please enter your must be min 6 char");
+//     }
+//     alert ("good password");
+    
+// }
