@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-    let income = sequelize.define("table2", {
+    let income = sequelize.define("income", {
             monthlyIncome: {
                 type: DataTypes.INTEGER,
                 allowNull: false
