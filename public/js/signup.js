@@ -1,24 +1,27 @@
 $(document).ready(function(){
-    $("#register-button").on("click",newUserDetails);
+    $("#register").on("click",newUserDetails);
 })
 //function to store new user details.
 function newUserDetails(){
     
     var pwd=$("#password").val();
     var confirmpwd=$("#confirmpassword").val();
+    var monthlyIncome = decimalCheck($('#monthlyIncome').val());
+
     if(($("#username").val()) === ""){
         alert("please enter valid username");
     } 
     else if(pwd === "" || pwd.length < 6){
         alert("please set your password to more than 6 characters");
     } 
-    else if(($("#monthlyIncome").val()) === ""){
+    else if(monthlyIncome === "" || !monthlyIncome){
         alert("please enter your monthly Income");
     } 
     else if(pwd !== confirmpwd){
         alert("password does not match");
     }
     else{
+       
        var newUser={
            username:$("#username").val().trim(),
            password:$("#password").val().trim(),
@@ -34,12 +37,9 @@ function newUserDetails(){
     }
 }
 
-// function checkPass() {
-//     var checkPass=$("#password").val();
 
-//     if (checkPass.length < 6) {
-//         alert("please enter your must be min 6 char");
-//     }
-//     alert ("good password");
-    
-// }
+    function decimalCheck(num){
+        var regEx = /^(\$)?([1-9]{1}[0-9]{0,2})(\,\d{3})*(\.\d{2})?$|^(\$)?([1-9]{1}[0-9]{0,2})(\d{3})*(\.\d{2})?$|^(0)?(\.\d{2})?$|^(\$0)?(\.\d{2})?$|^(\$\.)(\d{2})?$/
+
+        return regEx.test(num)
+    }
