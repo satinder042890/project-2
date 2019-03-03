@@ -17,6 +17,10 @@ module.exports = function(sequelize, DataTypes) {
         monthlyIncome: {
             type: DataTypes.INTEGER,
             allowNull: false
+        },
+        personalize: {
+            type: DataTypes.STRING,
+            defaultValue: "ee6e73"
         }
     });
     return userSignUp;
