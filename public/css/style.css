@@ -14,9 +14,10 @@ body {
     width: 100%;
 }
 
-.dropdown-trigger {
+#dd1 {
   color: white;
 }
+
 
 a:hover {
   color: white;
