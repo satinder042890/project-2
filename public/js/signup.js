@@ -28,8 +28,7 @@ function newUserDetails(){
           type:"POST",
           data:newUser
       }).then(function(){
-           console.log("new user added to the database");
-           location.reload();
+           alert("you are successfuly registered");
       })  
     }
 }

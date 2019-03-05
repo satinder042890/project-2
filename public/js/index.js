@@ -1,26 +1,25 @@
 $(document).ready(function () {
+//route to get personalize data from database
+  $.ajax("/personalize",{
+    type:"GET",
+  }).then(function(data){    
+    $(".nav-wrapper").css("background-color", data.personalize);
+  }); 
+
+//route to update personalize 
   $("#dropdown1 li").on("click", function () {
     var colorValue ={
-      personalize:$(this).text()
+      personalize:$(this).text() 
     };
     $.ajax("/personalize/update",{
-      type:"UPDATE",
+      type:"PUT",
       data:colorValue
     }).then(function(){
-      console.log("personalize updated");
-      
-      // $(".nav-wrapper").css("background-color", colorValue);
+      location.reload();
     });
   })
-
-  // $("#logout").on("click", function () {
-  //   $.ajax("/logout",{
-  //     type:"GET",
-  //   }).then(function(){
-  //     console.log("logged out");
-  //   })
-  // });
 })
+
 
 $('.dropdown-trigger').dropdown();
 

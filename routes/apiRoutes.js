@@ -18,25 +18,43 @@ module.exports = function (app) {
         res.redirect('/');
       });
 
+
     // POST route for saving a new post
     app.post("/signup/post", function (req, res) {
-        console.log(req.body);
+        
         db.userSignUp.create({
             userName: req.body.username,
             password: req.body.password,
             monthlyIncome: req.body.monthlyIncome
-        }).then(function (dbPost) {
-                res.json(dbPost);
+        }).then(function () {
+                res.redirect("/");
                 console.log("new user added");
             });
     });
 
     app.put("/personalize/update",function(req,res){
-      console.log(req.body);
       db.userSignUp.update({
-        personalize:req.body.colorValue
-      }).then(function(data){
-        res.json(data)
+        personalize:req.body.personalize
+      },
+      {
+      where:{
+        id:req.user.id
+      }
+    }).then(function(data){
+        res.json(data);
       })
-    })
+    });
+
+    app.get("/personalize", function(req, res) {
+      db.userSignUp.findOne(
+      {
+        where:{
+          id:req.user.id
+        }
+      })
+        .then(function(dbPost) {
+          res.json(dbPost);
+        });
+    });
+  
 }
