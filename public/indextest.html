@@ -89,6 +89,7 @@
       </div>
     </div>
   </div>
+
   <div id="content">
     <div class="jumbotron container" id="jumbo">
       <h3>Welcome to Budgetter</h3>
@@ -100,13 +101,21 @@
 
     <!-- Expense tables -->
     <div class="container" id="showexpenses">
-      <a class='dropdown-trigger btn' href='#' data-target='dropdown2'>Sort By</a>
+      <h2>Expenses</h2>
+      <button class="btn modal-trigger" href="#modal1">Enter New Expenses</button>
+      <a class='dropdown-trigger btn' href='#' data-target='dropdown2'>Date</a>
       <ul id='dropdown2' class='dropdown-content'>
         <li><a href="#!">Weekly</a></li>
         <li><a href="#!">Monthly</a></li>
         <li><a href="#!">Yearly</a></li>
       </ul>
-      <button class="btn modal-trigger" href="#modal1">Enter New Expenses</button>
+      <a class='dropdown-trigger btn' href='#' data-target='dropdown3'>Category</a>
+      <ul id='dropdown3' class='dropdown-content'>
+        <li><a href="#!">Bills</a></li>
+        <li><a href="#!">Food</a></li>
+        <li><a href="#!">Entertainment</a></li>
+      </ul>
+      
 
       <table>
         <thead>
@@ -118,7 +127,7 @@
             <th></th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="expTable">
           <tr>
             <td>01/01/19</td>
             <td>$50</td>
