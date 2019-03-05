@@ -1,9 +1,25 @@
 $(document).ready(function () {
   $("#dropdown1 li").on("click", function () {
-    var colorValue = $(this).text();
-    console.log(colorValue);
-    $(".nav-wrapper").css("background-color", colorValue);
+    var colorValue ={
+      personalize:$(this).text()
+    };
+    $.ajax("/personalize/update",{
+      type:"UPDATE",
+      data:colorValue
+    }).then(function(){
+      console.log("personalize updated");
+      
+      // $(".nav-wrapper").css("background-color", colorValue);
+    });
   })
+
+  // $("#logout").on("click", function () {
+  //   $.ajax("/logout",{
+  //     type:"GET",
+  //   }).then(function(){
+  //     console.log("logged out");
+  //   })
+  // });
 })
 
 $('.dropdown-trigger').dropdown();
