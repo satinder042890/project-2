@@ -16,8 +16,9 @@ $(document).ready(function () {
 
 //CRUD Functions***************
 var entries;
+var category = $('#expCategory').val();
 
-//delete function
+//delete function******
 function deleteEntry(id) {
   $.ajax({
       method: "DELETE",
@@ -28,11 +29,11 @@ function deleteEntry(id) {
     });
 };
 
-//Pulling expense entries
+//Pulling expense entries*****
 function getEntries() {
   $.get("api", function (data) {
     for (var i = 0; i < entries.length; i++) {
-
+      
     }
   })
 }
@@ -78,3 +79,9 @@ $('#viewexpenses').on('click', function () {
 $('#addExp').on('click', function () {
 
 });
+
+//Delete expense from table
+$('#deleteExp').on('click', function () {
+  deleteEntry(this);
+});
+
