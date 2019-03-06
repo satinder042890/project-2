@@ -28,13 +28,13 @@ module.exports = function(sequelize, DataTypes) {
             }
         });
 
-        // income.associate = function(models) {
-        //     income.belongsTo(models.userSignUp, {
-        //         foreignKey: {
-        //             allowNull: false
-        //         }
-        //     });
-        // }
+        income.associate = function(models) {
+            income.belongsTo(models.userSignUp, {
+                foreignKey: {
+                    allowNull: false
+                }
+            });
+        }
 
         return income;
 };

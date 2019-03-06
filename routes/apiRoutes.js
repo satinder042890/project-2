@@ -58,17 +58,6 @@ module.exports = function (app) {
     });
 
 
-    app.get("/username", function(req, res) {
-      db.userSignUp.findOne(
-      {
-        where:{
-          id:req.user.id
-        }
-      })
-        .then(function(dbPost) {
-          res.json(dbPost);
-        });
-    });
 
     app.get("/userdetails", function(req, res) {
       db.income.findAll(
@@ -82,12 +71,28 @@ module.exports = function (app) {
         });
     });
 
+    app.get("/expense/:category", function(req, res) {
+      // console.log(req.body.category+"req.body");
+      db.income.findAll(
+      {
+        where:{
+          userSignUpId:req.user.id,
+          category:req.params.category
+        }
+      })
+        .then(function(dbPost) {
+          res.json(dbPost);
+        });
+    });
+
+
     app.post("/user/addexpenses", function (req, res) {
       db.income.create({
           monthlyIncome: req.user.monthlyIncome,
           notes:req.body.notes,
           expenses:req.body.expenses,
-          category:req.body.category
+          category:req.body.category,
+          userSignUpId:req.user.id
       }).then(function (data) {
         res.json(data);
           });
@@ -96,7 +101,11 @@ module.exports = function (app) {
   //GET all expenses
   app.get("/user", function(req, res) {
     // console.log("running get");
-    db.income.findAll({}).then(function(data) {
+    db.income.findAll({
+      where:{
+        userSignUpId:req.user.id
+      }
+    }).then(function(data) {
       res.json(data);
     });
   })

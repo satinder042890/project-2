@@ -26,13 +26,13 @@ module.exports = function(sequelize, DataTypes) {
         }
     });
 
-    // userSignUp.associate = function(models) {
-    //     // Associating Author with Posts
-    //     // When an Author is deleted, also delete any associated Posts
-    //     userSignUp.hasMany(models.income, {
-    //       onDelete: "cascade"
-    //     });
-    //   };
+    userSignUp.associate = function(models) {
+        // Associating Author with Posts
+        // When an Author is deleted, also delete any associated Posts
+        userSignUp.hasMany(models.income, {
+          onDelete: "cascade"
+        });
+      };
     
 
 

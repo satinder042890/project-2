@@ -5,19 +5,13 @@ $(document).ready(function () {
     type:"GET",
   }).then(function(data){    
     $(".colornav").css("background-color", data.personalize);
-  }); 
-  $("#addExp").on("click",sumbitExp);
-  // $("#viewexpenses").on("click",getEntries);
-
-
-  $.ajax("/username",{
-    type:"GET",
-  }).then(function(data){    
     $("#username").text(data.userName);
     $("#total").text("$"+data.monthlyIncome);
   }); 
+  $("#addExp").on("click",sumbitExp);
+  
 
-//route to update personalize 
+   //route to update personalize 
   $("#dropdown1 li").on("click", function () {
     // var colorValue = $(this).text();
     // console.log(colorValue);
@@ -38,6 +32,29 @@ $(document).ready(function () {
   $('.modal').modal();
   $('select').formSelect();
   $('#showexpenses').hide();
+
+  $('#dropdown3 li').on('click', function () {
+    var category=$(this).text() ;
+    console.log("value"+category);
+    
+    
+    $('#expTable').empty();
+    $.ajax("/expense/"+category,{
+      type:"GET",
+    }).then(function(data){
+      for(let i = 0; i < data.length; i++) {
+        let row = $("<tr>");
+        row.append("<td>" + data[i].createdAt);
+        row.append("<td>" + "$" + data[i].expenses);
+        row.append("<td>" + data[i].notes);
+        row.append("<td>" + data[i].category);
+        row.append("<button class='btn deleteExp'>Delete</button>");
+        $("#expTable").append(row);
+      }
+    })
+  });
+
+
 })
 //-------------------------------------------------
 
@@ -56,41 +73,6 @@ function deleteEntry(id) {
       getExpenses();
     });
 };
-
-//Pulling expense entries*****
-// function getEntries() {
-
-//   $.ajax("/userdetails",{
-//     type:"GET",
-//   }).then(function(data){ 
-//     console.log(data);  
-//     for (var i = 0; i < data.length; i++) {
-//       let expEntry = $("<tr>");
-//       // expEntry.attr("id", "entry-"+i);
-      
-//       $(expEntry).append("<td>"+ data[i].amount + "</td><td>" + data[i].notes + "</td><td>" + data[i].category + "</td><td><button class='btn' id='deleteExp'>Delete</button></td>")
-//       $('#expTable').append(expEntry);
-//     }
-//   }); 
-
-// }
-//   $.get("/user/" + req.user.userName, function (data) {
-//     for (var i = 0; i < entries.length; i++) {
-//       let expEntry = $("<tr>");
-//       expEntry.attr("id", "entry-"+i);
-//       $('#expTable').append(expEntry);
-//       $("#entry-"+i).append("<td>Date</td><td>"+ data[i].amount + "</td><td>" + data[i].note + "</td><td>" + data[i].category + "</td><td><button class='btn' id='deleteExp'>Delete</button></td>")
-//     }
-//   })
-// }
-
-//Posts expense entry
-// let addExp = $('#addExp');
-// let expInput = $('#addexpense-amount').val();
-// let expNotes = $('#addexpense-note').val();
-// let expCategory = $('#expCategory').val();
-
-
 
 //Submits new Entry****Needs route
 function sumbitExp(){
@@ -119,24 +101,28 @@ function sumbitExp(){
     }
 };
 
-$.get("/user", function(data) {
-  console.log(data);
-  for(let i = 0; i < data.length; i++) {
-    let row = $("<tr>");
-    row.append("<td>" + data[i].createdAt);
-    row.append("<td>" + "$" + data[i].expenses);
-    row.append("<td>" + data[i].notes);
-    row.append("<td>" + data[i].category);
-    row.append("<button class='btn deleteExp'>Delete</button>");
-    $("#expTable").append(row);
-  }
-})
+
 
 //Show Expenses
 $('#viewexpenses').on('click', function () {
   $('#jumbo').hide();
   $('#showexpenses').show();
+  $.get("/user", function(data) {
+    console.log(data);
+    for(let i = 0; i < data.length; i++) {
+      let row = $("<tr>");
+      row.append("<td>" + data[i].createdAt);
+      row.append("<td>" + "$" + data[i].expenses);
+      row.append("<td>" + data[i].notes);
+      row.append("<td>" + data[i].category);
+      row.append("<button class='btn deleteExp'>Delete</button>");
+      $("#expTable").append(row);
+    }
+  })
 });
+
+
+
 
 //Delete expense from table
 //STILL NOT WORKING AS OF RN
