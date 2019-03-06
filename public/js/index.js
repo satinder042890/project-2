@@ -17,6 +17,7 @@ $(document).ready(function () {
 //CRUD Functions***************
 var entries;
 var category = $('#expCategory').val();
+var userName = "";
 
 //delete function******
 function deleteEntry(id) {
@@ -31,7 +32,7 @@ function deleteEntry(id) {
 
 //Pulling expense entries*****
 function getEntries() {
-  $.get("api", function (data) {
+  $.get("/user/" + userName, function (data) {
     for (var i = 0; i < entries.length; i++) {
       let expEntry = $("<tr>");
       expEntry.attr("id", "entry-"+i);
