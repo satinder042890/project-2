@@ -7,6 +7,7 @@ $(document).ready(function () {
     $(".colornav").css("background-color", data.personalize);
   }); 
   $("#addExp").on("click",sumbitExp);
+  $("#viewexpenses").on("click",getEntries);
 
 
   $.ajax("/username",{
@@ -59,15 +60,30 @@ function deleteEntry(id) {
 
 //Pulling expense entries*****
 function getEntries() {
-  $.get("/user/" + req.user.userName, function (data) {
-    for (var i = 0; i < entries.length; i++) {
+
+  $.ajax("/userdetails",{
+    type:"GET",
+  }).then(function(data){ 
+    console.log(data);  
+    for (var i = 0; i < data.length; i++) {
       let expEntry = $("<tr>");
-      expEntry.attr("id", "entry-"+i);
+      // expEntry.attr("id", "entry-"+i);
+      
+      $(expEntry).append("<td>"+ data[i].amount + "</td><td>" + data[i].notes + "</td><td>" + data[i].category + "</td><td><button class='btn' id='deleteExp'>Delete</button></td>")
       $('#expTable').append(expEntry);
-      $("#entry-"+i).append("<td>Date</td><td>"+ data[i].amount + "</td><td>" + data[i].note + "</td><td>" + data[i].category + "</td><td><button class='btn' id='deleteExp'>Delete</button></td>")
     }
-  })
+  }); 
+
 }
+//   $.get("/user/" + req.user.userName, function (data) {
+//     for (var i = 0; i < entries.length; i++) {
+//       let expEntry = $("<tr>");
+//       expEntry.attr("id", "entry-"+i);
+//       $('#expTable').append(expEntry);
+//       $("#entry-"+i).append("<td>Date</td><td>"+ data[i].amount + "</td><td>" + data[i].note + "</td><td>" + data[i].category + "</td><td><button class='btn' id='deleteExp'>Delete</button></td>")
+//     }
+//   })
+// }
 
 //Posts expense entry
 // let addExp = $('#addExp');

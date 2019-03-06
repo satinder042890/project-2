@@ -70,6 +70,18 @@ module.exports = function (app) {
         });
     });
 
+    app.get("/userdetails", function(req, res) {
+      db.income.findAll(
+      {
+        where:{
+          id:req.user.id
+        }
+      })
+        .then(function(dbPost) {
+          res.json(dbPost);
+        });
+    });
+
     app.post("/user/addexpenses", function (req, res) {
         
       db.income.create({
