@@ -18,13 +18,6 @@ module.exports = function(sequelize, DataTypes) {
             category: {
                 type: DataTypes.STRING,
                 defaultValue: "Personal"
-            }, 
-            note: {
-                type: DataTypes.TEXT,
-                allowNull: false,
-                validate: {
-                    len: [1]
-                }
             }
         });
 
