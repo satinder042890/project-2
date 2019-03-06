@@ -56,5 +56,17 @@ module.exports = function (app) {
           res.json(dbPost);
         });
     });
+
+    app.post("/user/addexpenses", function (req, res) {
+        
+      db.income.create({
+          monthlyIncome: req.user.monthlyIncome,
+          notes:req.body.notes,
+          expenses:req.body.expenses,
+          category:req.body.category
+      }).then(function (data) {
+        res.json(data);
+          });
+  });
   
 }
