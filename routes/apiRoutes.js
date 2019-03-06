@@ -57,6 +57,19 @@ module.exports = function (app) {
         });
     });
 
+
+    app.get("/username", function(req, res) {
+      db.userSignUp.findOne(
+      {
+        where:{
+          id:req.user.id
+        }
+      })
+        .then(function(dbPost) {
+          res.json(dbPost);
+        });
+    });
+
     app.post("/user/addexpenses", function (req, res) {
         
       db.income.create({

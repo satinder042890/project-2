@@ -9,6 +9,13 @@ $(document).ready(function () {
   $("#addExp").on("click",sumbitExp);
 
 
+  $.ajax("/username",{
+    type:"GET",
+  }).then(function(data){    
+    $("#username").text(data.userName);
+    $("#total").text("$"+data.monthlyIncome);
+  }); 
+
 //route to update personalize 
   $("#dropdown1 li").on("click", function () {
     // var colorValue = $(this).text();
@@ -91,7 +98,7 @@ function sumbitExp(){
           data:newExpense
       }).then(function(data){
            alert("New Expense is added to your account");
-           location.reload();
+          //  location.reload();
       })  
     }
 };
