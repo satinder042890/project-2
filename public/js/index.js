@@ -4,8 +4,10 @@ $(document).ready(function () {
   $.ajax("/personalize",{
     type:"GET",
   }).then(function(data){    
-    $(".nav-wrapper").css("background-color", data.personalize);
+    $(".colornav").css("background-color", data.personalize);
   }); 
+
+  
 
 //route to update personalize 
   $("#dropdown1 li").on("click", function () {
@@ -26,18 +28,29 @@ $(document).ready(function () {
   $('select').formSelect();
   $('#showexpenses').hide();
 })
+
+//Show Expenses
+$('#viewexpenses').on('click', function () {
+  $('#jumbo').hide();
+  $('#showexpenses').show();
+});
+
+//Delete expense from table
+$('#deleteExp').on('click', function () {
+  deleteEntry(this);
+});
 //-------------------------------------------------
 
 //CRUD Functions***************
 var entries;
 var category = $('#expCategory').val();
-var userName = "";
+var userName = req.user.userName;
 
 //delete function******
 function deleteEntry(id) {
   $.ajax({
       method: "DELETE",
-      url: "api" //*******/
+      url: "/user/" + req.user //*******/
     })
     .then(function () {
       getExpenses();
@@ -46,7 +59,7 @@ function deleteEntry(id) {
 
 //Pulling expense entries*****
 function getEntries() {
-  $.get("/user/" + userName, function (data) {
+  $.get("/user/" + req.user.userName, function (data) {
     for (var i = 0; i < entries.length; i++) {
       let expEntry = $("<tr>");
       expEntry.attr("id", "entry-"+i);
@@ -80,20 +93,11 @@ $(addExp).on("submit", function handleFormSubmit(event) {
 
 //Submits new Entry****Needs route
 function sumbitExp(Exp){
-  $.post("api", Exp, function(){
+  $.post("user/" + req.user, Exp, function(){
     window.location.reload();
   })
 };
 
 
-//Show Expenses
-$('#viewexpenses').on('click', function () {
-  $('#jumbo').hide();
-  $('#showexpenses').show();
-});
 
-//Delete expense from table
-$('#deleteExp').on('click', function () {
-  deleteEntry(this);
-});
 
