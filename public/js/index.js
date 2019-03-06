@@ -1,9 +1,26 @@
 //Materialize JS------
 $(document).ready(function () {
+//route to get personalize data from database
+  $.ajax("/personalize",{
+    type:"GET",
+  }).then(function(data){    
+    $(".nav-wrapper").css("background-color", data.personalize);
+  }); 
+
+//route to update personalize 
   $("#dropdown1 li").on("click", function () {
     var colorValue = $(this).text();
     console.log(colorValue);
     $(".colornav").css("background-color", colorValue);
+    var colorValue ={
+      personalize:$(this).text() 
+    };
+    $.ajax("/personalize/update",{
+      type:"PUT",
+      data:colorValue
+    }).then(function(){
+      location.reload();
+    });
   })
   $('.dropdown-trigger').dropdown();
   $('.dropdown-trigger2').dropdown();
@@ -13,6 +30,7 @@ $(document).ready(function () {
   $('#showexpenses').hide();
 })
 //-------------------------------------------------
+
 
 //CRUD Functions***************
 var entries;
