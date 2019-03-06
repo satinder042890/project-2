@@ -70,7 +70,7 @@ function getEntries() {
       let expEntry = $("<tr>");
       expEntry.attr("id", "entry-"+i);
       $('#expTable').append(expEntry);
-      $("#entry-"+i).append("<td>Date</td><td>"+ data[i].amount + "</td><td>" + data[i].note + "</td><td>" + data[i].category + "</td><td><button class='btn' id='deleteExp'>Delete</button></td>")
+      $("#entry-"+i).append("<td>Date</td><td>"+ data[i].amount + "</td><td>" + data[i].notes + "</td><td>" + data[i].category + "</td><td><button class='btn' id='deleteExp'>Delete</button></td>")
     }
   })
 }

@@ -7,9 +7,6 @@ module.exports = function(sequelize, DataTypes) {
             expenses: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
-                validate: {
-                    len: [1]
-                }
             },
             notes:{
                 type: DataTypes.STRING,
@@ -21,7 +18,24 @@ module.exports = function(sequelize, DataTypes) {
             category: {
                 type: DataTypes.STRING,
                 defaultValue: "Personal"
+            }, 
+            note: {
+                type: DataTypes.TEXT,
+                allowNull: false,
+                validate: {
+                    len: [1]
+                }
             }
         });
+
+        // income.associate = function(models) {
+        //     income.belongsTo(models.userSignUp, {
+        //         foreignKey: {
+        //             allowNull: false
+        //         }
+        //     });
+        // }
+
         return income;
 };
+
