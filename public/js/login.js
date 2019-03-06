@@ -17,9 +17,8 @@ $(document).ready(function() {
            type:"POST",
            data: validateLogin
        }).then(function(){
-            console.log("new user added to the database");
             location.reload();
        })  
-       console.log("working");  
+       console.log("login button click working");  
     }
 });
