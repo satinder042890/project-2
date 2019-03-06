@@ -28,26 +28,21 @@ function newUserDetails(){
            monthlyIncome:$("#monthlyIncome").val().trim()
        };
 
-    //    let firstName = hasNumber($('#first_name').val());
-    //    let lasttName = hasNumber($('#first_name').val());
-
-    //    console.log("Does first name have a number?", firstName, "Does last name have a number?:", lastName);
-
-    //    if (firstName || lastName){
-    //        alert("no numbers please"); 
-    //    }else{
-    //        alert("Your account has been created!")
-    //    }
-
-
+       console.log(newUser);
+       
       $.ajax("/signup/post",{
           type:"POST",
           data:newUser
-      }).then(function(){
-           console.log("new user added to the database");
-           location.reload();
+      }).then(function(err){
+        if (!err){
+            alert("NEW USER CREATED YAY")
+        }
+        
+        console.log("TEST")
       })  
     }
+
+    
 }
 
 
