@@ -58,7 +58,6 @@ module.exports = function (app) {
     });
 
     app.post("/user/addexpenses", function (req, res) {
-        
       db.income.create({
           monthlyIncome: req.user.monthlyIncome,
           notes:req.body.notes,
@@ -69,4 +68,15 @@ module.exports = function (app) {
           });
   });
   
+  //GET all expenses
+  app.get("/user/", function(req, res) {
+    db.income.findAll({}).then(function(data) {
+      res.json(data);
+    });
+  })
+  //DELETE an expense
+  app.delete("")
+
+  //POST new expense
+
 }

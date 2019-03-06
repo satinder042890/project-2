@@ -40,10 +40,6 @@ module.exports = function(sequelize, DataTypes) {
         user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
     });
 
-
-//     userSignUp.associate = function(models) {
-//     userSignUp.hasOne(models.income)
-// }
     return userSignUp;
 };
 
