@@ -4,14 +4,25 @@ $(document).ready(function () {
   $.ajax("/personalize",{
     type:"GET",
   }).then(function(data){    
-    $(".nav-wrapper").css("background-color", data.personalize);
+    $(".colornav").css("background-color", data.personalize);
   }); 
+  $("#addExp").on("click",sumbitExp);
+
 
 //route to update personalize 
   $("#dropdown1 li").on("click", function () {
-    var colorValue = $(this).text();
-    console.log(colorValue);
-    $(".colornav").css("background-color", colorValue);
+    // var colorValue = $(this).text();
+    // console.log(colorValue);
+    // $(".colornav").css("background-color", colorValue);
+    var colorValue ={
+      personalize:$(this).text() 
+    };
+    $.ajax("/personalize/update",{
+      type:"PUT",
+      data:colorValue
+    }).then(function(){
+      location.reload();
+    });
   })
   $('.dropdown-trigger').dropdown();
   $('.dropdown-trigger2').dropdown();
@@ -51,32 +62,37 @@ function getEntries() {
 }
 
 //Posts expense entry
-let addExp = $('#addExp');
-let expInput = $('#addexpense-amount').val();
-let expNotes = $('#addexpense-note').val();
-let expCategory = $('#expCategory').val();
+// let addExp = $('#addExp');
+// let expInput = $('#addexpense-amount').val();
+// let expNotes = $('#addexpense-note').val();
+// let expCategory = $('#expCategory').val();
 
-$(addExp).on("submit", function handleFormSubmit(event) {
-  event.preventDefault();
-  // Wont submit the entry if we are missing a value or a note
-  if (!expInput.val().trim() || !expNotes.val().trim()) {
-    return;
-  }
-  // Constructing a newExp object to hand to the database
-  var newExp = {
-    amount: expInput.val().trim(),
-    note: expNotes.val().trim(),
-    category: expCategory.val()
-  };
 
-  submitExp(newExp);
-});
 
 //Submits new Entry****Needs route
-function sumbitExp(Exp){
-  $.post("api", Exp, function(){
-    window.location.reload();
-  })
+function sumbitExp(){
+    var amount=$("#addexpense-amount").val();
+    var notes=$("#addexpense-note").val();
+    if(amount === ""){
+        alert("please enter the amount");
+    } 
+    else if(notes === ""){
+        alert("please enter notes");
+    } 
+    else{
+       var newExpense={
+           expenses:$("#addexpense-amount").val().trim(),
+           notes:$("#addexpense-note").val().trim(),
+           category:$("#expCategory option:selected").text()
+       };
+      $.ajax("/user/addexpenses",{
+          type:"POST",
+          data:newExpense
+      }).then(function(data){
+           alert("New Expense is added to your account");
+           location.reload();
+      })  
+    }
 };
 
 

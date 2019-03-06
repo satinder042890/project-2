@@ -56,14 +56,17 @@ module.exports = function (app) {
           res.json(dbPost);
         });
     });
-//------------------------------------------------------------
 
-//GET for all the expenses 
-    app.get("")
-//POST for adding new expense
-
-//UPDATE for updating income in the db
-
-//DELETE to delete an expense from the db
-
+    app.post("/user/addexpenses", function (req, res) {
+        
+      db.income.create({
+          monthlyIncome: req.user.monthlyIncome,
+          notes:req.body.notes,
+          expenses:req.body.expenses,
+          category:req.body.category
+      }).then(function (data) {
+        res.json(data);
+          });
+  });
+  
 }
