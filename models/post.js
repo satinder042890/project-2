@@ -1,3 +1,5 @@
+var bcrypt = require("bcrypt-nodejs");
+
 module.exports = function(sequelize, DataTypes) {
     let userSignUp = sequelize.define("userSignUp", {
         userName: {
@@ -17,30 +19,30 @@ module.exports = function(sequelize, DataTypes) {
         monthlyIncome: {
             type: DataTypes.INTEGER,
             allowNull: false
+        },
+        personalize:{
+            type: DataTypes.STRING,
+            defaultValue:"ee6e73"
         }
     });
+// Creating a custom method for our User model. This will check if an unhashed password
+// entered by the user can be compared to the hashed password stored in our database
+
+    userSignUp.prototype.validPassword = function(password) {
+        return bcrypt.compareSync(password, this.password);
+    };
+    
+// Hooks are automatic methods that run during various phases of the User Model lifecycle
+  // In this case, before a User is created, we will automatically hash their password
+
+      
+    userSignUp.hook("beforeCreate", function(user) {
+        user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
+    });
+    
     return userSignUp;
 };
 
-// module.exports = function(sequelize, DataTypes) {
-//     let income = sequelize.define("table2", {
-//             monthlyIncome: {
-//                 type: DataTypes.INTEGER,
-//                 allowNull: false
-//             },
-//             expenses: {
-//                 type: DataTypes.TEXT,
-//                 allowNull: false,
-//                 validate: {
-//                     len: [1]
-//                 }
-//             },
-//             category: {
-//                 type: DataTypes.STRING,
-//                 defaultValue: "Personal"
-//             }
-//         });
-//         return income;
-// };
+
 
 // income.belongsTo(userSignUp);

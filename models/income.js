@@ -5,10 +5,17 @@ module.exports = function(sequelize, DataTypes) {
                 allowNull: false
             },
             expenses: {
-                type: DataTypes.TEXT,
+                type: DataTypes.INTEGER,
                 allowNull: false,
                 validate: {
                     len: [1]
+                }
+            },
+            notes:{
+                type: DataTypes.STRING,
+                allowNull: false,
+                validate: {
+                    len: [4]
                 }
             },
             category: {

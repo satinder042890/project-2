@@ -1,60 +1,117 @@
-$(document).ready(function(){
-    $("#dropdown li").on("click",function(){
-        var colorValue=$(this).text();
-        console.log(colorValue);
-        $(".nav-wrapper").css("background-color",colorValue);
-        $("#foot").css("background-color",colorValue);
-    })
-
-
-    // $(".first_name")=function validate() {
-    //     if (document.myForm.name.value == "") {
-    //         alert("Enter a name");
-    //         document.myForm.name.focus();
-    //         return false;
-    //     }
-    //     if (!/^[0-9]*$/g.test(document.myForm.name.value)) {
-    //         alert("Invalid characters");
-    //         document.myForm.name.focus();
-    //         return false;
-    //     }
-    // }
-
-    $('#register-button').click(function(){
-
-        let firstName = hasNumber($('#first_name').val());
-        let lastName = hasNumber($('#last_name').val());
-
-        console.log ("DOES FIRST NAME HAVE A NUMBER?", firstName, "DOES LAST NAME HAVE A NUMBER?:", lastName)
-
-        if (firstName || lastName){
-            alert('NO NUMBERS PLEASE!')
-        }else{
-
-            //PUT CODE TO REGISTER USER
-
-
-            alert("YOU SIGNED UP COOL!")
-        }
-
-    });
-
-
-    function hasNumber(str) {
-        return /\d/.test(str);
-      }
-
-    
-});
-
-
-
-
-
-$('.dropdown-trigger').dropdown();
-
+//Materialize JS------
 $(document).ready(function () {
+//route to get personalize data from database
+  $.ajax("/personalize",{
+    type:"GET",
+  }).then(function(data){    
+    $(".colornav").css("background-color", data.personalize);
+  }); 
+  $("#addExp").on("click",sumbitExp);
+
+
+  $.ajax("/username",{
+    type:"GET",
+  }).then(function(data){    
+    $("#username").text(data.userName);
+    $("#total").text("$"+data.monthlyIncome);
+  }); 
+
+//route to update personalize 
+  $("#dropdown1 li").on("click", function () {
+    // var colorValue = $(this).text();
+    // console.log(colorValue);
+    // $(".colornav").css("background-color", colorValue);
+    var colorValue ={
+      personalize:$(this).text() 
+    };
+    $.ajax("/personalize/update",{
+      type:"PUT",
+      data:colorValue
+    }).then(function(){
+      location.reload();
+    });
+  })
+  $('.dropdown-trigger').dropdown();
+  $('.dropdown-trigger2').dropdown();
   $('.sidenav').sidenav();
+  $('.modal').modal();
+  $('select').formSelect();
+  $('#showexpenses').hide();
+})
+//-------------------------------------------------
+
+
+//CRUD Functions***************
+var entries;
+var category = $('#expCategory').val();
+var userName = "";
+
+//delete function******
+function deleteEntry(id) {
+  $.ajax({
+      method: "DELETE",
+      url: "api" //*******/
+    })
+    .then(function () {
+      getExpenses();
+    });
+};
+
+//Pulling expense entries*****
+function getEntries() {
+  $.get("/user/" + req.user.userName, function (data) {
+    for (var i = 0; i < entries.length; i++) {
+      let expEntry = $("<tr>");
+      expEntry.attr("id", "entry-"+i);
+      $('#expTable').append(expEntry);
+      $("#entry-"+i).append("<td>Date</td><td>"+ data[i].amount + "</td><td>" + data[i].note + "</td><td>" + data[i].category + "</td><td><button class='btn' id='deleteExp'>Delete</button></td>")
+    }
+  })
+}
+
+//Posts expense entry
+// let addExp = $('#addExp');
+// let expInput = $('#addexpense-amount').val();
+// let expNotes = $('#addexpense-note').val();
+// let expCategory = $('#expCategory').val();
+
+
+
+//Submits new Entry****Needs route
+function sumbitExp(){
+    var amount=$("#addexpense-amount").val();
+    var notes=$("#addexpense-note").val();
+    if(amount === ""){
+        alert("please enter the amount");
+    } 
+    else if(notes === ""){
+        alert("please enter notes");
+    } 
+    else{
+       var newExpense={
+           expenses:$("#addexpense-amount").val().trim(),
+           notes:$("#addexpense-note").val().trim(),
+           category:$("#expCategory option:selected").text()
+       };
+      $.ajax("/user/addexpenses",{
+          type:"POST",
+          data:newExpense
+      }).then(function(data){
+           alert("New Expense is added to your account");
+          //  location.reload();
+      })  
+    }
+};
+
+
+//Show Expenses
+$('#viewexpenses').on('click', function () {
+  $('#jumbo').hide();
+  $('#showexpenses').show();
 });
 
-$('.dropdown-trigger2').dropdown();
+//Delete expense from table
+$('#deleteExp').on('click', function () {
+  deleteEntry(this);
+});
+
