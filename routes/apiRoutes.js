@@ -57,6 +57,19 @@ module.exports = function (app) {
         });
     });
 
+
+    app.get("/username", function(req, res) {
+      db.userSignUp.findOne(
+      {
+        where:{
+          id:req.user.id
+        }
+      })
+        .then(function(dbPost) {
+          res.json(dbPost);
+        });
+    });
+
     app.post("/user/addexpenses", function (req, res) {
       db.income.create({
           monthlyIncome: req.user.monthlyIncome,
@@ -69,13 +82,24 @@ module.exports = function (app) {
   });
   
   //GET all expenses
-  app.get("/user/", function(req, res) {
+  app.get("/user", function(req, res) {
+    // console.log("running get");
     db.income.findAll({}).then(function(data) {
       res.json(data);
     });
   })
+
   //DELETE an expense
-  app.delete("")
+  //STILL NOT WORKING AS OF RN
+  app.delete("/user/income/:id", function(req, res) {
+    db.income.destroy({
+      where: {
+        id: req.params.id
+      }
+    }).then(function(dbPost) {
+      res.json(data);
+    })
+  })
 
   //POST new expense
 

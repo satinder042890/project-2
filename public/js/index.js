@@ -9,6 +9,13 @@ $(document).ready(function () {
   $("#addExp").on("click",sumbitExp);
 
 
+  $.ajax("/username",{
+    type:"GET",
+  }).then(function(data){    
+    $("#username").text(data.userName);
+    $("#total").text("$"+data.monthlyIncome);
+  }); 
+
 //route to update personalize 
   $("#dropdown1 li").on("click", function () {
     // var colorValue = $(this).text();
@@ -90,11 +97,24 @@ function sumbitExp(){
           data:newExpense
       }).then(function(data){
            alert("New Expense is added to your account");
-           location.reload();
+
+          //  location.reload();
       })  
     }
 };
 
+$.get("/user", function(data) {
+  console.log(data);
+  for(let i = 0; i < data.length; i++) {
+    let row = $("<tr>");
+    row.append("<td>" + data[i].createdAt);
+    row.append("<td>" + "$" + data[i].expenses);
+    row.append("<td>" + data[i].notes);
+    row.append("<td>" + data[i].category);
+    row.append("<button class='btn deleteExp'>Delete</button>");
+    $("#expTable").append(row);
+  }
+})
 
 //Show Expenses
 $('#viewexpenses').on('click', function () {
@@ -103,7 +123,9 @@ $('#viewexpenses').on('click', function () {
 });
 
 //Delete expense from table
-$('#deleteExp').on('click', function () {
+//STILL NOT WORKING AS OF RN
+$('#expTable').on('click', "button", function () {
+  console.log("clicked");
   deleteEntry(this);
 });
 
