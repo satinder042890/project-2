@@ -1,24 +1,31 @@
-//needs jquery trigger on button press
-//needs read route to verify the user information
-//page then routes to indextest.html
-
-$(document).ready(function() { 
-    $("#login").on("click", loginDetails);
+$(document).ready(function(){
+    $("#login").on("click",checkAuthentication);
+})
+//function to store new user details.
+function checkAuthentication(){
     
-    function loginDetails() {
-        var validateLogin = {
-            username: $("#userName").val().trim(),
-            password: $("#password").val().trim() 
-        };
-    
-        console.log(validateLogin);
-
-       $.ajax("/login/post", {
-           type:"POST",
-           data: validateLogin
-       }).then(function(){
-            location.reload();
-       })  
-       console.log("login button click working");  
+    // var pwd=$("#password").val();
+    // var username=$("#username").val();
+    if(($("#username").val()) === ""){
+        alert("please enter valid username");
+    } 
+    else if(($("#password").val()) === ""){
+        alert("please enter your password");
+    } 
+    else{
+       var user={
+           username:$("#username").val().trim(),
+           password:$("#password").val().trim()
+       };
+      $.ajax("/user/login",{
+          type:"POST",
+          data:user
+      }).then(function(data){
+           console.log("login successfull");
+           window.location.replace(data);
+      }).catch(function(err) {
+        console.log(err);
+      });
+   
     }
-});
+}
