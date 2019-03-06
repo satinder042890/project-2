@@ -7,7 +7,7 @@ $(document).ready(function () {
     $(".colornav").css("background-color", data.personalize);
   }); 
   $("#addExp").on("click",sumbitExp);
-  $("#viewexpenses").on("click",getEntries);
+  // $("#viewexpenses").on("click",getEntries);
 
 
   $.ajax("/username",{
@@ -41,7 +41,6 @@ $(document).ready(function () {
 })
 //-------------------------------------------------
 
-
 //CRUD Functions***************
 var entries;
 var category = $('#expCategory').val();
@@ -59,22 +58,22 @@ function deleteEntry(id) {
 };
 
 //Pulling expense entries*****
-function getEntries() {
+// function getEntries() {
 
-  $.ajax("/userdetails",{
-    type:"GET",
-  }).then(function(data){ 
-    console.log(data);  
-    for (var i = 0; i < data.length; i++) {
-      let expEntry = $("<tr>");
-      // expEntry.attr("id", "entry-"+i);
+//   $.ajax("/userdetails",{
+//     type:"GET",
+//   }).then(function(data){ 
+//     console.log(data);  
+//     for (var i = 0; i < data.length; i++) {
+//       let expEntry = $("<tr>");
+//       // expEntry.attr("id", "entry-"+i);
       
-      $(expEntry).append("<td>"+ data[i].amount + "</td><td>" + data[i].notes + "</td><td>" + data[i].category + "</td><td><button class='btn' id='deleteExp'>Delete</button></td>")
-      $('#expTable').append(expEntry);
-    }
-  }); 
+//       $(expEntry).append("<td>"+ data[i].amount + "</td><td>" + data[i].notes + "</td><td>" + data[i].category + "</td><td><button class='btn' id='deleteExp'>Delete</button></td>")
+//       $('#expTable').append(expEntry);
+//     }
+//   }); 
 
-}
+// }
 //   $.get("/user/" + req.user.userName, function (data) {
 //     for (var i = 0; i < entries.length; i++) {
 //       let expEntry = $("<tr>");
@@ -114,11 +113,24 @@ function sumbitExp(){
           data:newExpense
       }).then(function(data){
            alert("New Expense is added to your account");
+
           //  location.reload();
       })  
     }
 };
 
+$.get("/user", function(data) {
+  console.log(data);
+  for(let i = 0; i < data.length; i++) {
+    let row = $("<tr>");
+    row.append("<td>" + data[i].createdAt);
+    row.append("<td>" + "$" + data[i].expenses);
+    row.append("<td>" + data[i].notes);
+    row.append("<td>" + data[i].category);
+    row.append("<button class='btn deleteExp'>Delete</button>");
+    $("#expTable").append(row);
+  }
+})
 
 //Show Expenses
 $('#viewexpenses').on('click', function () {
@@ -127,7 +139,9 @@ $('#viewexpenses').on('click', function () {
 });
 
 //Delete expense from table
-$('#deleteExp').on('click', function () {
+//STILL NOT WORKING AS OF RN
+$('#expTable').on('click', "button", function () {
+  console.log("clicked");
   deleteEntry(this);
 });
 

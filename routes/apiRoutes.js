@@ -83,7 +83,6 @@ module.exports = function (app) {
     });
 
     app.post("/user/addexpenses", function (req, res) {
-        
       db.income.create({
           monthlyIncome: req.user.monthlyIncome,
           notes:req.body.notes,
@@ -94,4 +93,26 @@ module.exports = function (app) {
           });
   });
   
+  //GET all expenses
+  app.get("/user", function(req, res) {
+    // console.log("running get");
+    db.income.findAll({}).then(function(data) {
+      res.json(data);
+    });
+  })
+
+  //DELETE an expense
+  //STILL NOT WORKING AS OF RN
+  app.delete("/user/income/:id", function(req, res) {
+    db.income.destroy({
+      where: {
+        id: req.params.id
+      }
+    }).then(function(dbPost) {
+      res.json(data);
+    })
+  })
+
+  //POST new expense
+
 }

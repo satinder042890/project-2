@@ -26,13 +26,13 @@ module.exports = function(sequelize, DataTypes) {
         }
     });
 
-    userSignUp.associate = function(models) {
-        // Associating Author with Posts
-        // When an Author is deleted, also delete any associated Posts
-        userSignUp.hasMany(models.income, {
-          onDelete: "cascade"
-        });
-      };
+    // userSignUp.associate = function(models) {
+    //     // Associating Author with Posts
+    //     // When an Author is deleted, also delete any associated Posts
+    //     userSignUp.hasMany(models.income, {
+    //       onDelete: "cascade"
+    //     });
+    //   };
     
 
 
@@ -44,16 +44,13 @@ module.exports = function(sequelize, DataTypes) {
     };
     
 // Hooks are automatic methods that run during various phases of the User Model lifecycle
-  // In this case, before a User is created, we will automatically hash their password
+// In this case, before a User is created, we will automatically hash their password
 
       
     userSignUp.hook("beforeCreate", function(user) {
         user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
     });
-    
+
     return userSignUp;
 };
 
-
-
-// income.belongsTo(userSignUp);

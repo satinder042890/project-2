@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $("#login").on("click",checkAuthentication);
+    $("#login").on("click", checkAuthentication);
 })
 //function to store new user details.
 function checkAuthentication(){
@@ -26,6 +26,6 @@ function checkAuthentication(){
       }).catch(function(err) {
         console.log(err);
       });
-   
+
     }
 }

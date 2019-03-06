@@ -7,9 +7,6 @@ module.exports = function(sequelize, DataTypes) {
             expenses: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
-                validate: {
-                    len: [1]
-                }
             },
             notes:{
                 type: DataTypes.STRING,
@@ -21,18 +18,24 @@ module.exports = function(sequelize, DataTypes) {
             category: {
                 type: DataTypes.STRING,
                 defaultValue: "Personal"
+            }, 
+            notes: {
+                type: DataTypes.TEXT,
+                allowNull: false,
+                validate: {
+                    len: [1]
+                }
             }
         });
 
-        income.associate = function(models) {
-            // We're saying that a Post should belong to an Author
-            // A Post can't be created without an Author due to the foreign key constraint
-            income.belongsTo(models.userSignUp, {
-              foreignKey: {
-                allowNull: false
-              }
-            });
-          };
+        // income.associate = function(models) {
+        //     income.belongsTo(models.userSignUp, {
+        //         foreignKey: {
+        //             allowNull: false
+        //         }
+        //     });
+        // }
 
         return income;
 };
+
