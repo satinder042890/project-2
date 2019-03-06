@@ -56,5 +56,14 @@ module.exports = function (app) {
           res.json(dbPost);
         });
     });
-  
+//------------------------------------------------------------
+
+//GET for all the expenses 
+    app.get("")
+//POST for adding new expense
+
+//UPDATE for updating income in the db
+
+//DELETE to delete an expense from the db
+
 }

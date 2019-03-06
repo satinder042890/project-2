@@ -40,7 +40,7 @@ function deleteEntry(id) {
 
 //Pulling expense entries*****
 function getEntries() {
-  $.get("/user/" + userName, function (data) {
+  $.get("/user/" + req.user.userName, function (data) {
     for (var i = 0; i < entries.length; i++) {
       let expEntry = $("<tr>");
       expEntry.attr("id", "entry-"+i);

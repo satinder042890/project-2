@@ -5,16 +5,30 @@ module.exports = function(sequelize, DataTypes) {
                 allowNull: false
             },
             expenses: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+            },
+            category: {
+                type: DataTypes.STRING,
+                defaultValue: "Personal"
+            }, 
+            note: {
                 type: DataTypes.TEXT,
                 allowNull: false,
                 validate: {
                     len: [1]
                 }
-            },
-            category: {
-                type: DataTypes.STRING,
-                defaultValue: "Personal"
             }
         });
+
+        // income.associate = function(models) {
+        //     income.belongsTo(models.userSignUp, {
+        //         foreignKey: {
+        //             allowNull: false
+        //         }
+        //     });
+        // }
+
         return income;
 };
+
