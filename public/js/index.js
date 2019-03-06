@@ -9,9 +9,6 @@ $(document).ready(function () {
 
 //route to update personalize 
   $("#dropdown1 li").on("click", function () {
-    var colorValue = $(this).text();
-    console.log(colorValue);
-    $(".colornav").css("background-color", colorValue);
     var colorValue ={
       personalize:$(this).text() 
     };
@@ -30,7 +27,6 @@ $(document).ready(function () {
   $('#showexpenses').hide();
 })
 //-------------------------------------------------
-
 
 //CRUD Functions***************
 var entries;
