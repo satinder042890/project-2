@@ -14,10 +14,16 @@ body {
     width: 100%;
 }
 
-.dropdown-trigger {
+#dd1 {
   color: white;
 }
 
+
 a:hover {
   color: white;
+}
+
+#modal1 {
+  width: 50vh;
+  height: auto;
 }
