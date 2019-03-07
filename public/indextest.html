@@ -44,7 +44,7 @@
     <li>
       <div class="user-view">
         <h3 id="username"></h3>
-        <h5 id="total"></h5>
+        <h5 id="income"></h5>
       </div>
       <div class="divider"></div>
     </li>
@@ -52,7 +52,7 @@
     <li><a class="modal-trigger" href="#modal1" id="newexpense">Enter New Expenses</a></li>
     <li>
     </li>
-    <li><a href="#!" id="updatemonthly">Update Monthly Income</a></li>
+    <li><a class="modal-trigger" href="#updateIncomeModal" id="updatemonthly">Update Monthly Income</a></li>
   </ul>
   <br>
 
@@ -91,6 +91,30 @@
     </div>
   </div>
 
+
+
+  <div id="updateIncomeModal" class="modal">
+    <div class="modal-content">
+      <h4>Update Monthly Income</h4>
+      <div class="row">
+        <form class="col s12" id="updateMod">
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="updateIncome" type="text">
+              <label for="income">New Income</label>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="incomeUpdation">Submit</a>
+    </div>
+  </div>
+
+
+
+
   <div id="content">
     <div class="jumbotron container" id="jumbo">
       <h3>Welcome to Budgetter</h3>
@@ -128,15 +152,11 @@
           </tr>
         </thead>
         <tbody id="expTable">
-          <!-- <tr>
-            <td>01/01/19</td> 
-            <td>$50</td>
-            <td>Chipotle</td>
-            <td>Food</td>
-            <td><button class="btn" id="deleteExp">Delete</button></td>
-          </tr> -->
+          
         </tbody>
       </table>
+      <br>
+      <h3 id="total">Total = 0</h3>
     </div>
 
   </div>

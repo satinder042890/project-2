@@ -45,6 +45,20 @@ module.exports = function (app) {
       })
     });
 
+    app.put("/update/income",function(req,res){
+      db.userSignUp.update({
+        monthlyIncome:req.body.monthlyIncome
+      },
+      {
+      where:{
+        id:req.user.id
+      }
+    }).then(function(data){
+        res.json(data);
+      })
+    });
+
+
     app.get("/personalize", function(req, res) {
       db.userSignUp.findOne(
       {
@@ -88,7 +102,7 @@ module.exports = function (app) {
 
     app.post("/user/addexpenses", function (req, res) {
       db.income.create({
-          monthlyIncome: req.user.monthlyIncome,
+          // monthlyIncome: req.user.monthlyIncome,
           notes:req.body.notes,
           expenses:req.body.expenses,
           category:req.body.category,

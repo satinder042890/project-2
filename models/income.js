@@ -1,9 +1,9 @@
 module.exports = function(sequelize, DataTypes) {
     let income = sequelize.define("income", {
-            monthlyIncome: {
-                type: DataTypes.INTEGER,
-                allowNull: false
-            },
+            // monthlyIncome: {
+            //     type: DataTypes.INTEGER,
+            //     allowNull: false
+            // },
             expenses: {
                 type: DataTypes.INTEGER,
                 allowNull: false,

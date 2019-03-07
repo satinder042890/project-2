@@ -23,7 +23,8 @@ a:hover {
   color: white;
 }
 
-#modal1 {
+#modal1,
+#updateIncomeModal {
   width: 50vh;
   height: auto;
 }
