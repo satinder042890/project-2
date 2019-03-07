@@ -1,17 +1,22 @@
 //Materialize JS------
+var income=0;
+var bal=0;
 $(document).ready(function () {
+  
   //route to get personalize data from database
   $.ajax("/personalize", {
     type: "GET",
   }).then(function (data) {
+    
     $(".colornav").css("background-color", data.personalize);
     $("#username").text(data.userName);
     $("#income").text("$" + data.monthlyIncome);
+    income=data.monthlyIncome;
   });
   $("#addExp").on("click", sumbitExp);
   $("#incomeUpdation").on("click", changeIncome);
   $('#viewexpenses').on('click',viewExpenses);
-
+  
   //route to update personalize 
   $("#dropdown1 li").on("click", function () {
     // var colorValue = $(this).text();
@@ -38,6 +43,7 @@ $(document).ready(function () {
     var category = $(this).text();
    var total=0;
     $('#expTable').empty();
+    // $('#details').empty();
     $.ajax("/expense/" + category, {
       type: "GET",
     }).then(function (data) {
@@ -51,7 +57,7 @@ $(document).ready(function () {
         $("#expTable").append(row);
         total+= data[i].expenses;
       }
-      $("#total").text("Total = "+total)
+      $("#total").text(category+" Total = "+total);
     })
   });
 
@@ -120,7 +126,10 @@ function sumbitExp() {
       $("#expTable").append(row);
       total+=data[i].expenses;
     }
+    bal=income-total;
     $("#total").text("Total = "+total);
+    $("#Bal").text("Balance = "+bal);
+    $("#inc").text("Monthly Income = "+income);
   })
 };
 
