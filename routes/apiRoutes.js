@@ -100,6 +100,21 @@ module.exports = function (app) {
     });
 
 
+
+    app.get("/current/days", function(req, res) {
+      // console.log(req.body.category+"req.body");
+      db.income.findAll(
+      {
+        where:{
+          userSignUpId:req.user.id,
+        }
+      })
+        .then(function(dbPost) {
+          res.json(dbPost);
+        });
+    });
+
+
     app.post("/user/addexpenses", function (req, res) {
       db.income.create({
           // monthlyIncome: req.user.monthlyIncome,

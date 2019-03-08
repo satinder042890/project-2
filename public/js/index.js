@@ -1,24 +1,24 @@
 //Materialize JS------
 
-var income=0;
-var bal=0;
-var d;
+var income = 0;
+var bal = 0;
+var date;
 $(document).ready(function () {
-  
+
   //route to get personalize data from database
   $.ajax("/personalize", {
     type: "GET",
   }).then(function (data) {
-    
+
     $(".colornav").css("background-color", data.personalize);
     $("#username").text(data.userName);
     $("#income").text("$" + data.monthlyIncome);
-    income=data.monthlyIncome;
+    income = data.monthlyIncome;
   });
   $("#addExp").on("click", sumbitExp);
   $("#incomeUpdation").on("click", changeIncome);
-  $('#viewexpenses').on('click',viewExpenses);
-  
+  $('#viewexpenses').on('click', viewExpenses);
+
   //route to update personalize 
   $("#dropdown1 li").on("click", function () {
 
@@ -41,39 +41,128 @@ $(document).ready(function () {
   $('.modal').modal();
   $('select').formSelect();
   $('#showexpenses').hide();
-  $('#viewGraph').on('click',function (){
+  $('#viewGraph').on('click', function () {
     graph();
   })
 
-  
+
 
 
 
 
   $('#dropdown3 li').on('click', function () {
     var category = $(this).text();
-   var total=0;
+    var total = 0;
     $('#expTable').empty();
     // $('#details').empty();
     $.ajax("/expense/" + category, {
       type: "GET",
     }).then(function (data) {
       for (let i = 0; i < data.length; i++) {
+        date = moment(data[i].createdAt).format("dddd, MMMM Do YYYY");
         let row = $("<tr>");
-        row.append("<td>" + data[i].createdAt);
+        row.append("<td>" + date);
         row.append("<td>" + "$" + data[i].expenses);
         row.append("<td>" + data[i].notes);
         row.append("<td>" + data[i].category);
         row.append("<button class='btn deleteExp'>Delete</button>");
         $("#expTable").append(row);
-        total+= data[i].expenses;
+        total += data[i].expenses;
       }
-      $("#total").text(category+" Total = "+total);
+      $("#total").text(category + " Total = " + total);
     })
   });
 
 
-})
+
+
+  $('#dropdown2 li').on('click', function () {
+    var userChoice = $(this).text();
+    $('#expTable').empty();
+    $.ajax("/current/days", {
+      type: "GET",
+    }).then(function (data) {
+      if (userChoice === "This Week") {
+        thisWeekData(data, userChoice);
+      }
+      if (userChoice === "This Month") {
+        thisMonthData(data, userChoice);
+      }
+      if (userChoice === "This Year") {
+        thisYearData(data, userChoice);
+      }
+    });
+  });
+});
+
+function thisWeekData(data, userChoice) {
+  var startOfWeek = moment().startOf('week').toDate();
+  var startDate = moment(startOfWeek).format("D");
+  var total = 0;
+  var userDate;
+  for (let i = 0; i < data.length; i++) {
+    userDate = moment(data[i].createdAt).format("D");
+    date = moment(data[i].createdAt).format("dddd, MMMM Do YYYY");
+    if (userDate >= startDate) {
+      let row = $("<tr>");
+      row.append("<td>" + date);
+      row.append("<td>" + "$" + data[i].expenses);
+      row.append("<td>" + data[i].notes);
+      row.append("<td>" + data[i].category);
+      row.append("<button class='btn deleteExp'>Delete</button>");
+      $("#expTable").append(row);
+      total += data[i].expenses;
+    }
+    $("#total").text(userChoice + " Total = " + total);
+  }
+}
+
+
+function thisMonthData(data, userChoice) {
+  var startOfMonth = moment().startOf('month').toDate();
+  var startDate = moment(startOfMonth).format("D");
+  var total = 0;
+  var userDate;
+  for (let i = 0; i < data.length; i++) {
+    userDate = moment(data[i].createdAt).format("D");
+    date = moment(data[i].createdAt).format("dddd, MMMM Do YYYY");
+    if (userDate >= startDate) {
+      let row = $("<tr>");
+      row.append("<td>" + date);
+      row.append("<td>" + "$" + data[i].expenses);
+      row.append("<td>" + data[i].notes);
+      row.append("<td>" + data[i].category);
+      row.append("<button class='btn deleteExp'>Delete</button>");
+      $("#expTable").append(row);
+      total += data[i].expenses;
+    }
+    $("#total").text(userChoice + " Total = " + total);
+  }
+}
+
+function thisYearData(data, userChoice) {
+  var startOfYear = moment().startOf('year').toDate();
+  var startDate = moment(startOfYear).format("D");
+  var total = 0;
+  var userDate;
+  for (let i = 0; i < data.length; i++) {
+    userDate = moment(data[i].createdAt).format("D");
+    date = moment(data[i].createdAt).format("dddd, MMMM Do YYYY");
+    if (userDate >= startDate) {
+      let row = $("<tr>");
+      row.append("<td>" + date);
+      row.append("<td>" + "$" + data[i].expenses);
+      row.append("<td>" + data[i].notes);
+      row.append("<td>" + data[i].category);
+      row.append("<button class='btn deleteExp'>Delete</button>");
+      $("#expTable").append(row);
+      total += data[i].expenses;
+    }
+    $("#total").text(userChoice + " Total = " + total);
+  }
+}
+
+
 
 //Show Expenses
 $('#viewexpenses').on('click', function () {
@@ -96,7 +185,7 @@ function deleteEntry(id) {
     method: "DELETE",
     url: "/api/user/income/" + id//*******/
   })
-    .then(function() {
+    .then(function () {
       // getExpenses();
       viewExpenses();
     });
@@ -125,7 +214,7 @@ function sumbitExp() {
       data: newExpense
     }).then(function (data) {
       alert("New Expense is added to your account");
-       viewExpenses();
+      viewExpenses();
       //  location.reload();
     })
   }
@@ -136,35 +225,35 @@ var entertainmentTotal = 0;
 var billsTotal = 0;
 var foodTotal = 0;
 
-function graph () {
-var data = [{
-  values: [entertainmentTotal, billsTotal, foodTotal],
-  labels: ['Bills', 'Entertainment', 'Food'],
-  type: 'pie'
-}];
+function graph() {
+  var data = [{
+    values: [entertainmentTotal, billsTotal, foodTotal],
+    labels: ['Bills', 'Entertainment', 'Food'],
+    type: 'pie'
+  }];
 
-Plotly.newPlot('myDiv', data, {}, {showSendToCloud:true});
+  Plotly.newPlot('myDiv', data, {}, { showSendToCloud: true });
 };
 
 //Show Expenses
- function viewExpenses() {
+function viewExpenses() {
   $('#jumbo').hide();
   $('#showexpenses').show();
   $('#expTable').empty();
-  var total=0;
-  
+  var total = 0;
+
   $.get("/user", function (data) {
     // console.log(data);
     for (let i = 0; i < data.length; i++) {
-     d=moment(data[i].createdAt).format("dddd, MMMM Do YYYY");
+      date = moment(data[i].createdAt).format("dddd, MMMM Do YYYY");
       let row = $("<tr>");
-      row.append("<td>" + d);
+      row.append("<td>" + date);
       row.append("<td>" + "$" + data[i].expenses);
       row.append("<td>" + data[i].notes);
       row.append("<td>" + data[i].category);
-      row.append("<button class='btn deleteExp' data-name="+data[i].id+">Delete</button>");
+      row.append("<button class='btn deleteExp' data-name=" + data[i].id + ">Delete</button>");
       $("#expTable").append(row);
-      total+=data[i].expenses;
+      total += data[i].expenses;
 
       // Graph Variables
       if (data[i].category === "Bills") {
@@ -177,13 +266,13 @@ Plotly.newPlot('myDiv', data, {}, {showSendToCloud:true});
       }
       else {
         foodTotal += data[i].expenses
-        console.log("Food" +foodTotal);
+        console.log("Food" + foodTotal);
       };
     }
-    bal=income-total;
-    $("#total").text("Total: $"+total);
-    $("#Bal").text("Balance: $"+bal);
-    $("#inc").text("Monthly Income: $"+income);
+    bal = income - total;
+    $("#total").text("Total: $" + total);
+    $("#Bal").text("Balance: $" + bal);
+    $("#inc").text("Monthly Income: $" + income);
   })
 };
 
@@ -207,9 +296,9 @@ function changeIncome() {
 
 
 // Delete expense from table
-$('#expTable').on('click', "button", function() {
-  var id=$(this).attr("data-name");
-  console.log("id="+id);
+$('#expTable').on('click', "button", function () {
+  var id = $(this).attr("data-name");
+  console.log("id=" + id);
   // console.log(id);
   deleteEntry(id);
 });
