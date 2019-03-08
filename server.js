@@ -6,7 +6,7 @@ var passport = require("./config/passport");
 
 // Sets up the Express App
 var app=express();
-var PORT=process.env.PORT || 8000;
+var port=process.env.port || 8000;
 
 // Requiring our models for syncing
 var db = require("./models");
@@ -32,8 +32,8 @@ require("./routes/htmlRoutes.js")(app);
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
  db.sequelize.sync({}).then(function() {
-    app.listen(PORT, function() {
-      console.log("App listening on PORT " + PORT);
+    app.listen(port, function() {
+      console.log("App listening on PORT " + port);
     });
    });
   
