@@ -45,6 +45,20 @@ module.exports = function (app) {
       })
     });
 
+    app.put("/update/income",function(req,res){
+      db.userSignUp.update({
+        monthlyIncome:req.body.monthlyIncome
+      },
+      {
+      where:{
+        id:req.user.id
+      }
+    }).then(function(data){
+        res.json(data);
+      })
+    });
+
+
     app.get("/personalize", function(req, res) {
       db.userSignUp.findOne(
       {
@@ -58,8 +72,9 @@ module.exports = function (app) {
     });
 
 
-    app.get("/username", function(req, res) {
-      db.userSignUp.findOne(
+
+    app.get("/userdetails", function(req, res) {
+      db.income.findAll(
       {
         where:{
           id:req.user.id
@@ -70,16 +85,57 @@ module.exports = function (app) {
         });
     });
 
+    app.get("/expense/:category", function(req, res) {
+      // console.log(req.body.category+"req.body");
+      db.income.findAll(
+      {
+        where:{
+          userSignUpId:req.user.id,
+          category:req.params.category
+        }
+      })
+        .then(function(dbPost) {
+          res.json(dbPost);
+        });
+    });
+
+
     app.post("/user/addexpenses", function (req, res) {
-        
       db.income.create({
-          monthlyIncome: req.user.monthlyIncome,
+          // monthlyIncome: req.user.monthlyIncome,
           notes:req.body.notes,
           expenses:req.body.expenses,
-          category:req.body.category
+          category:req.body.category,
+          userSignUpId:req.user.id
       }).then(function (data) {
         res.json(data);
           });
   });
   
+  //GET all expenses
+  app.get("/user", function(req, res) {
+    // console.log("running get");
+    db.income.findAll({
+      where:{
+        userSignUpId:req.user.id
+      }
+    }).then(function(data) {
+      res.json(data);
+    });
+  })
+
+  //DELETE an expense
+  //STILL NOT WORKING AS OF RN
+  app.delete("/user/income/:id", function(req, res) {
+    db.income.destroy({
+      where: {
+        id: req.params.id
+      }
+    }).then(function(dbPost) {
+      res.json(data);
+    })
+  })
+
+  //POST new expense
+
 }

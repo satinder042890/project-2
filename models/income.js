@@ -1,9 +1,9 @@
 module.exports = function(sequelize, DataTypes) {
     let income = sequelize.define("income", {
-            monthlyIncome: {
-                type: DataTypes.INTEGER,
-                allowNull: false
-            },
+            // monthlyIncome: {
+            //     type: DataTypes.INTEGER,
+            //     allowNull: false
+            // },
             expenses: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
@@ -18,16 +18,23 @@ module.exports = function(sequelize, DataTypes) {
             category: {
                 type: DataTypes.STRING,
                 defaultValue: "Personal"
+            }, 
+            notes: {
+                type: DataTypes.TEXT,
+                allowNull: false,
+                validate: {
+                    len: [1]
+                }
             }
         });
 
-        // income.associate = function(models) {
-        //     income.belongsTo(models.userSignUp, {
-        //         foreignKey: {
-        //             allowNull: false
-        //         }
-        //     });
-        // }
+        income.associate = function(models) {
+            income.belongsTo(models.userSignUp, {
+                foreignKey: {
+                    allowNull: false
+                }
+            });
+        }
 
         return income;
 };
