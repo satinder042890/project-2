@@ -82,7 +82,6 @@ $('#viewexpenses').on('click', function () {
 });
 
 //Delete expense from table
-
 //-------------------------------------------------
 
 //CRUD Functions***************
