@@ -1,3 +1,5 @@
+//INCOME MODEL TO STORE USERS EXPENSES
+
 module.exports = function(sequelize, DataTypes) {
     let income = sequelize.define("income", {
             // monthlyIncome: {

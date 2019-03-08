@@ -1,3 +1,8 @@
+//USER MODEL TO STORE USERS DETAILS
+
+//DEPENDENCEIS
+
+//USED TO ENCRYPT THE PASSWORD
 var bcrypt = require("bcrypt-nodejs");
 
 module.exports = function(sequelize, DataTypes) {
@@ -27,8 +32,8 @@ module.exports = function(sequelize, DataTypes) {
     });
 
     userSignUp.associate = function(models) {
-        // Associating Author with Posts
-        // When an Author is deleted, also delete any associated Posts
+        // Associating USER with INCOME
+        // When an USER is deleted, also delete any associated INCOME DETAILS
         userSignUp.hasMany(models.income, {
           onDelete: "cascade"
         });

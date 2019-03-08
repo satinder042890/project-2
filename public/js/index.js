@@ -1,8 +1,11 @@
 //Materialize JS------
 
+//GLOBAL VARIABLES
 var income = 0;
 var bal = 0;
 var date;
+
+
 $(document).ready(function () {
 
   //route to get personalize data from database
@@ -15,16 +18,14 @@ $(document).ready(function () {
     $("#income").text("$" + data.monthlyIncome);
     income = data.monthlyIncome;
   });
+
+  //ON CLICK EVENTS
   $("#addExp").on("click", sumbitExp);
   $("#incomeUpdation").on("click", changeIncome);
   $('#viewexpenses').on('click', viewExpenses);
 
   //route to update personalize 
   $("#dropdown1 li").on("click", function () {
-
-    // var colorValue = $(this).text();
-    // console.log(colorValue);
-    // $(".colornav").css("background-color", colorValue);
     var colorValue = {
       personalize: $(this).text()
     };
@@ -35,6 +36,8 @@ $(document).ready(function () {
       location.reload();
     });
   })
+
+  //DROPDOWN TRIGGERS
   $('.dropdown-trigger').dropdown();
   $('.dropdown-trigger2').dropdown();
   $('.sidenav').sidenav();
@@ -46,36 +49,18 @@ $(document).ready(function () {
   })
 
 
-
-
-
-
+  // VEIW EXPENSES ACCORDING TO CATEGORY
   $('#dropdown3 li').on('click', function () {
     var category = $(this).text();
-    var total = 0;
     $('#expTable').empty();
-    // $('#details').empty();
     $.ajax("/expense/" + category, {
       type: "GET",
     }).then(function (data) {
-      for (let i = 0; i < data.length; i++) {
-        date = moment(data[i].createdAt).format("dddd, MMMM Do YYYY");
-        let row = $("<tr>");
-        row.append("<td>" + date);
-        row.append("<td>" + "$" + data[i].expenses);
-        row.append("<td>" + data[i].notes);
-        row.append("<td>" + data[i].category);
-        row.append("<button class='btn deleteExp'>Delete</button>");
-        $("#expTable").append(row);
-        total += data[i].expenses;
-      }
-      $("#total").text(category + " Total = " + total);
+      displayData(data, category);
     })
   });
 
-
-
-
+  //VEIW EXPENSES ACCORDING TO DATE
   $('#dropdown2 li').on('click', function () {
     var userChoice = $(this).text();
     $('#expTable').empty();
@@ -95,88 +80,67 @@ $(document).ready(function () {
   });
 });
 
+
+//DISPLAY DATA ACCORDING TO DATES
+function displayDateData(data, userChoice, startDate) {
+  var total=0;
+  var userDate;
+  for (let i = 0; i < data.length; i++) {
+    userDate = moment(data[i].createdAt).format("D");
+    date = moment(data[i].createdAt).format("dddd, MMMM Do YYYY");
+    if (userDate >= startDate) {
+      let row = $("<tr>");
+      row.append("<td>" + date);
+      row.append("<td>" + "$" + data[i].expenses);
+      row.append("<td>" + data[i].notes);
+      row.append("<td>" + data[i].category);
+      row.append("<button class='btn deleteExp' data-name=" + data[i].id + ">Delete</button>");
+      $("#expTable").append(row);
+      total += data[i].expenses;
+    }
+  }
+  $("#total").text(userChoice + " Total = " + total);
+}
+
+
+//DISPLAY DATA ACCORDING TO CATEGORY
+function displayData(data, choice) {
+  var total=0;
+  for (let i = 0; i < data.length; i++) {
+    date = moment(data[i].createdAt).format("dddd, MMMM Do YYYY");
+    let row = $("<tr>");
+    row.append("<td>" + date);
+    row.append("<td>" + "$" + data[i].expenses);
+    row.append("<td>" + data[i].notes);
+    row.append("<td>" + data[i].category);
+    row.append("<button class='btn deleteExp' data-name=" + data[i].id + ">Delete</button>");
+    $("#expTable").append(row);
+    total += data[i].expenses;
+  }
+  $("#total").text(choice + " Total = " + total);
+}
+
+
+//CALCULATE STARTING DATE OF THIS WEEK
 function thisWeekData(data, userChoice) {
   var startOfWeek = moment().startOf('week').toDate();
   var startDate = moment(startOfWeek).format("D");
-  var total = 0;
-  var userDate;
-  for (let i = 0; i < data.length; i++) {
-    userDate = moment(data[i].createdAt).format("D");
-    date = moment(data[i].createdAt).format("dddd, MMMM Do YYYY");
-    if (userDate >= startDate) {
-      let row = $("<tr>");
-      row.append("<td>" + date);
-      row.append("<td>" + "$" + data[i].expenses);
-      row.append("<td>" + data[i].notes);
-      row.append("<td>" + data[i].category);
-      row.append("<button class='btn deleteExp'>Delete</button>");
-      $("#expTable").append(row);
-      total += data[i].expenses;
-    }
-    $("#total").text(userChoice + " Total = " + total);
-  }
+  displayDateData(data, userChoice, startDate);
 }
 
-
+//CALCULATE STARTING DATE OF THIS MONTH
 function thisMonthData(data, userChoice) {
   var startOfMonth = moment().startOf('month').toDate();
   var startDate = moment(startOfMonth).format("D");
-  var total = 0;
-  var userDate;
-  for (let i = 0; i < data.length; i++) {
-    userDate = moment(data[i].createdAt).format("D");
-    date = moment(data[i].createdAt).format("dddd, MMMM Do YYYY");
-    if (userDate >= startDate) {
-      let row = $("<tr>");
-      row.append("<td>" + date);
-      row.append("<td>" + "$" + data[i].expenses);
-      row.append("<td>" + data[i].notes);
-      row.append("<td>" + data[i].category);
-      row.append("<button class='btn deleteExp'>Delete</button>");
-      $("#expTable").append(row);
-      total += data[i].expenses;
-    }
-    $("#total").text(userChoice + " Total = " + total);
-  }
+  displayDateData(data, userChoice, startDate); 
 }
 
+//CALCULATE STARTING DATE OF THIS YEAR
 function thisYearData(data, userChoice) {
   var startOfYear = moment().startOf('year').toDate();
   var startDate = moment(startOfYear).format("D");
-  var total = 0;
-  var userDate;
-  for (let i = 0; i < data.length; i++) {
-    userDate = moment(data[i].createdAt).format("D");
-    date = moment(data[i].createdAt).format("dddd, MMMM Do YYYY");
-    if (userDate >= startDate) {
-      let row = $("<tr>");
-      row.append("<td>" + date);
-      row.append("<td>" + "$" + data[i].expenses);
-      row.append("<td>" + data[i].notes);
-      row.append("<td>" + data[i].category);
-      row.append("<button class='btn deleteExp'>Delete</button>");
-      $("#expTable").append(row);
-      total += data[i].expenses;
-    }
-    $("#total").text(userChoice + " Total = " + total);
-  }
+  displayDateData(data, userChoice, startDate); 
 }
-
-
-
-//Show Expenses
-$('#viewexpenses').on('click', function () {
-  $('#jumbo').hide();
-  $('#showexpenses').show();
-});
-
-//Delete expense from table
-//-------------------------------------------------
-
-//CRUD Functions***************
-var entries;
-var category = $('#expCategory').val();
-// var userName = req.user.userName;
 
 //delete function******
 function deleteEntry(id) {
@@ -186,12 +150,9 @@ function deleteEntry(id) {
     url: "/api/user/income/" + id//*******/
   })
     .then(function () {
-      // getExpenses();
       viewExpenses();
     });
 };
-
-
 
 //Submits new Entry****Needs route
 function sumbitExp() {
@@ -276,8 +237,8 @@ function viewExpenses() {
   })
 };
 
+//TO UPDATE MONTHLY INCOME
 function changeIncome() {
-  console.log("hello");
   if (($("#updateIncome").val()) === "") {
     alert("please enter your new Income");
   }
@@ -293,8 +254,6 @@ function changeIncome() {
     });
   }
 }
-
-
 // Delete expense from table
 $('#expTable').on('click', "button", function () {
   var id = $(this).attr("data-name");
