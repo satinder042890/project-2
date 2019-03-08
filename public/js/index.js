@@ -19,6 +19,7 @@ $(document).ready(function () {
   
   //route to update personalize 
   $("#dropdown1 li").on("click", function () {
+
     // var colorValue = $(this).text();
     // console.log(colorValue);
     // $(".colornav").css("background-color", colorValue);
@@ -63,12 +64,23 @@ $(document).ready(function () {
 
 
 })
+
+//Show Expenses
+$('#viewexpenses').on('click', function () {
+  $('#jumbo').hide();
+  $('#showexpenses').show();
+});
+
+//Delete expense from table
+$('#deleteExp').on('click', function () {
+  deleteEntry(this);
+});
 //-------------------------------------------------
 
 //CRUD Functions***************
 var entries;
 var category = $('#expCategory').val();
-var userName = "";
+// var userName = req.user.userName;
 
 //delete function******
 function deleteEntry(id) {
@@ -82,6 +94,26 @@ function deleteEntry(id) {
       viewExpenses();
     });
 };
+
+//Pulling expense entries*****
+function getEntries() {
+  $.get("/user/" + req.user.userName, function (data) {
+    for (var i = 0; i < entries.length; i++) {
+      let expEntry = $("<tr>");
+      expEntry.attr("id", "entry-"+i);
+      $('#expTable').append(expEntry);
+      $("#entry-"+i).append("<td>Date</td><td>"+ data[i].amount + "</td><td>" + data[i].notes + "</td><td>" + data[i].category + "</td><td><button class='btn' id='deleteExp'>Delete</button></td>")
+    }
+  })
+}
+
+//Posts expense entry
+// let addExp = $('#addExp');
+// let expInput = $('#addexpense-amount').val();
+// let expNotes = $('#addexpense-note').val();
+// let expCategory = $('#expCategory').val();
+
+
 
 //Submits new Entry****Needs route
 function sumbitExp() {
@@ -130,9 +162,9 @@ function sumbitExp() {
       total+=data[i].expenses;
     }
     bal=income-total;
-    $("#total").text("Total = "+total);
-    $("#Bal").text("Balance = "+bal);
-    $("#inc").text("Monthly Income = "+income);
+    $("#total").text("Total: $"+total);
+    $("#Bal").text("Balance: $"+bal);
+    $("#inc").text("Monthly Income: $"+income);
   })
 };
 
