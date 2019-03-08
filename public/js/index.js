@@ -2,6 +2,7 @@
 
 var income=0;
 var bal=0;
+var d;
 $(document).ready(function () {
   
   //route to get personalize data from database
@@ -41,6 +42,11 @@ $(document).ready(function () {
   $('select').formSelect();
   $('#showexpenses').hide();
 
+  
+
+
+
+
   $('#dropdown3 li').on('click', function () {
     var category = $(this).text();
    var total=0;
@@ -73,9 +79,7 @@ $('#viewexpenses').on('click', function () {
 });
 
 //Delete expense from table
-$('#deleteExp').on('click', function () {
-  deleteEntry(this);
-});
+
 //-------------------------------------------------
 
 //CRUD Functions***************
@@ -95,24 +99,6 @@ function deleteEntry(id) {
       viewExpenses();
     });
 };
-
-//Pulling expense entries*****
-function getEntries() {
-  $.get("/user/" + req.user.userName, function (data) {
-    for (var i = 0; i < entries.length; i++) {
-      let expEntry = $("<tr>");
-      expEntry.attr("id", "entry-"+i);
-      $('#expTable').append(expEntry);
-      $("#entry-"+i).append("<td>Date</td><td>"+ data[i].amount + "</td><td>" + data[i].notes + "</td><td>" + data[i].category + "</td><td><button class='btn' id='deleteExp'>Delete</button></td>")
-    }
-  })
-}
-
-//Posts expense entry
-// let addExp = $('#addExp');
-// let expInput = $('#addexpense-amount').val();
-// let expNotes = $('#addexpense-note').val();
-// let expCategory = $('#expCategory').val();
 
 
 
@@ -152,18 +138,13 @@ function sumbitExp() {
   $.get("/user", function (data) {
     // console.log(data);
     for (let i = 0; i < data.length; i++) {
-      var d=moment(data[i].createdAt).format("dddd, MMMM Do YYYY");
+     d=moment(data[i].createdAt).format("dddd, MMMM Do YYYY");
       let row = $("<tr>");
-<<<<<<< HEAD
       row.append("<td>" + d);
-=======
-      row.append("<td>" + data[i].id);
-      row.append("<td>" + data[i].createdAt);
->>>>>>> 74abb17762ee3e5cc6f5ca14849c89dc16c3e30b
       row.append("<td>" + "$" + data[i].expenses);
       row.append("<td>" + data[i].notes);
       row.append("<td>" + data[i].category);
-      row.append("<button class='btn deleteExp'>Delete</button>");
+      row.append("<button class='btn deleteExp' data-name="+data[i].id+">Delete</button>");
       $("#expTable").append(row);
       total+=data[i].expenses;
     }
@@ -193,10 +174,10 @@ function changeIncome() {
 }
 
 
-//Delete expense from table
-$('#expTable').on('click', "button", function (data) {
-  let parentPost = $(this).parent()
-  let id = parentPost[0].innerText.charAt(0);
+// Delete expense from table
+$('#expTable').on('click', "button", function() {
+  var id=$(this).attr("data-name");
+  console.log("id="+id);
   // console.log(id);
   deleteEntry(id);
 });
