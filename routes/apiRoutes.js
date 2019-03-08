@@ -125,17 +125,16 @@ module.exports = function (app) {
   })
 
   //DELETE an expense
-  //STILL NOT WORKING AS OF RN
-  app.delete("/user/income/:id", function(req, res) {
+  app.delete("/api/user/income/:id", function(req, res) {
+    console.log(req.params.id);
     db.income.destroy({
       where: {
         id: req.params.id
       }
     }).then(function(dbPost) {
-      res.json(data);
+      res.json(dbPost);
     })
   })
 
-  //POST new expense
 
 }

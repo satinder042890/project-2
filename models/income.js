@@ -8,13 +8,6 @@ module.exports = function(sequelize, DataTypes) {
                 type: DataTypes.INTEGER,
                 allowNull: false,
             },
-            notes:{
-                type: DataTypes.STRING,
-                allowNull: false,
-                validate: {
-                    len: [4]
-                }
-            },
             category: {
                 type: DataTypes.STRING,
                 defaultValue: "Personal"
