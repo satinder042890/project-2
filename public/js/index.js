@@ -75,9 +75,11 @@ $('#viewexpenses').on('click', function () {
 });
 
 //Delete expense from table
-$('#deleteExp').on('click', function () {
-  deleteEntry(this);
-});
+// $('#deleteExp').on('click', function () {
+//   let id = $(this).attr("data-name");
+//   console.log(id + "running");
+//   deleteEntry(id);
+// });
 //-------------------------------------------------
 
 //CRUD Functions***************
@@ -99,16 +101,16 @@ function deleteEntry(id) {
 };
 
 //Pulling expense entries*****
-function getEntries() {
-  $.get("/user/" + req.user.userName, function (data) {
-    for (var i = 0; i < entries.length; i++) {
-      let expEntry = $("<tr>");
-      expEntry.attr("id", "entry-"+i);
-      $('#expTable').append(expEntry);
-      $("#entry-"+i).append("<td>Date</td><td>"+ data[i].amount + "</td><td>" + data[i].notes + "</td><td>" + data[i].category + "</td><td><button class='btn' id='deleteExp'>Delete</button></td>")
-    }
-  })
-}
+// function getEntries() {
+//   $.get("/user/" + req.user.userName, function (data) {
+//     for (var i = 0; i < entries.length; i++) {
+//       let expEntry = $("<tr>");
+//       expEntry.attr("id", "entry-"+i);
+//       $('#expTable').append(expEntry);
+//       $("#entry-"+i).append("<td>Date</td><td>"+ data[i].amount + "</td><td>" + data[i].notes + "</td><td>" + data[i].category + "</td><td><button class='btn' id='deleteExp' data-name=" + data[i].id + ">Delete</button></td>")
+//     }
+//   })
+// }
 
 //Posts expense entry
 // let addExp = $('#addExp');
@@ -176,7 +178,7 @@ Plotly.newPlot('myDiv', data, {}, {showSendToCloud:true});
       row.append("<td>" + "$" + data[i].expenses);
       row.append("<td>" + data[i].notes);
       row.append("<td>" + data[i].category);
-      row.append("<button class='btn deleteExp'>Delete</button>");
+      row.append("<button class='btn deleteExp' data-name=" + data[i].id + ">Delete</button>");
       $("#expTable").append(row);
       total+=data[i].expenses;
 
@@ -222,8 +224,8 @@ function changeIncome() {
 
 //Delete expense from table
 $('#expTable').on('click', "button", function (data) {
-  let parentPost = $(this).parent()
-  let id = parentPost[0].innerText.charAt(0);
+  let id = $(this).attr("data-name");
+  console.log("clicked");
   // console.log(id);
   deleteEntry(id);
 });
