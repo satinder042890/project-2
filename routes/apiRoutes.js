@@ -21,7 +21,7 @@ module.exports = function (app) {
 
     // POST route for saving a new post
     app.post("/signup/post", function (req, res) {
-        
+        console.log(req.body)
         db.userSignUp.create({
             userName: req.body.username,
             password: req.body.password,
@@ -126,15 +126,14 @@ module.exports = function (app) {
 
   //DELETE an expense
   app.delete("/api/user/income/:id", function(req, res) {
-    console.log(req.params.id);
+    // console.log(req.params.id);
     db.income.destroy({
       where: {
         id: req.params.id
       }
     }).then(function(dbPost) {
       res.json(dbPost);
-    })
+    });
   })
-
 
 }
