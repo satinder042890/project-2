@@ -126,15 +126,14 @@ module.exports = function (app) {
 
   //DELETE an expense
   app.delete("/api/user/income/:id", function(req, res) {
-    console.log(req.params.id);
+    // console.log(req.params.id);
     db.income.destroy({
       where: {
         id: req.params.id
       }
     }).then(function(dbPost) {
       res.json(dbPost);
-    })
+    });
   })
-
 
 }
