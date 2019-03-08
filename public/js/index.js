@@ -1,4 +1,5 @@
 //Materialize JS------
+
 var income=0;
 var bal=0;
 $(document).ready(function () {
@@ -117,8 +118,9 @@ function sumbitExp() {
   $.get("/user", function (data) {
     console.log(data);
     for (let i = 0; i < data.length; i++) {
+      var d=moment(data[i].createdAt).format("dddd, MMMM Do YYYY");
       let row = $("<tr>");
-      row.append("<td>" + data[i].createdAt);
+      row.append("<td>" + d);
       row.append("<td>" + "$" + data[i].expenses);
       row.append("<td>" + data[i].notes);
       row.append("<td>" + data[i].category);
