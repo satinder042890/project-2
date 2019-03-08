@@ -24,7 +24,7 @@
       <button class="sidenav-trigger" data-target="slide-out"><i class="fas fa-bars"></i></button>
       <a href="indextest.html" class="brand-logo">Budgetter</a>
       <ul class="right hide-on-med-and-down">
-        <li><a class="waves-effect " href="/">Logout</a></li>
+        <li><a class="waves-effect" href="/">Logout</a></li>
         <a class='dropdown-trigger btn' href='#' data-target='dropdown1' id="dd1">Personalize</a>
         <!-- Dropdown Structure -->
         <ul id='dropdown1' class='dropdown-content'>
@@ -38,7 +38,7 @@
       </ul>
     </div>
   </nav>
-  
+
   <!-- Sidenav -->
   <ul id="slide-out" class="sidenav">
     <li>
@@ -70,7 +70,7 @@
             <div class="row">
               <div class="input-field col s12">
                 <input id="addexpense-note" type="text">
-                <label for="notes">Notes</label>
+                <label for="note">Notes</label>
               </div>
             </div>
             <br>
@@ -123,7 +123,15 @@
 
     <!-- Expense tables -->
     <div class="container" id="showexpenses">
+      <div class="container">
       <h2>Expenses</h2>
+      <br>
+      <div id="details" class="z-depth-2">
+            <h5 id="inc" class="col s4"></h5>
+            <h5 id="total" class="col s4">Total: $0</h5>
+            <h5 id="Bal" class="col s4"></h5>
+            </div>
+      </div>
       <button class="btn modal-trigger" href="#modal1">Enter New Expenses</button>
       <a class='dropdown-trigger btn' href='#' data-target='dropdown2'>Date</a>
       <ul id='dropdown2' class='dropdown-content'>
@@ -137,7 +145,6 @@
         <li><a href="#!">Food</a></li>
         <li><a href="#!">Entertainment</a></li>
       </ul>
-
       <table>
         <thead>
           <tr>
@@ -153,11 +160,6 @@
         </tbody>
       </table>
       <br><br>
-      <div class="row" id="details">
-      <h3 id="inc" class="col s4"></h3>
-      <h3 id="total" class="col s4">Total = 0</h3>
-      <h3 id="Bal" class="col s4"></h3>
-      </div>
     </div>
 
   </div>
