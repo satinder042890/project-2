@@ -39,6 +39,9 @@ $(document).ready(function () {
   $('.modal').modal();
   $('select').formSelect();
   $('#showexpenses').hide();
+  $('#viewGraph').on('click',function (){
+    graph();
+  })
 
   $('#dropdown3 li').on('click', function () {
     var category = $(this).text();
@@ -84,12 +87,14 @@ var category = $('#expCategory').val();
 
 //delete function******
 function deleteEntry(id) {
+  console.log(id);
   $.ajax({
-      method: "DELETE",
-      url: "/user/" + req.user //*******/
-    })
-    .then(function () {
-      getExpenses();
+    method: "DELETE",
+    url: "/api/user/income/" + id//*******/
+  })
+    .then(function() {
+      // getExpenses();
+      viewExpenses();
     });
 };
 
@@ -140,16 +145,33 @@ function sumbitExp() {
   }
 };
 
+// Graph
+var entertainmentTotal = 0;
+var billsTotal = 0;
+var foodTotal = 0;
+
+function graph () {
+var data = [{
+  values: [entertainmentTotal, billsTotal, foodTotal],
+  labels: ['Bills', 'Entertainment', 'Food'],
+  type: 'pie'
+}];
+
+Plotly.newPlot('myDiv', data, {}, {showSendToCloud:true});
+};
+
 //Show Expenses
  function viewExpenses() {
   $('#jumbo').hide();
   $('#showexpenses').show();
   $('#expTable').empty();
   var total=0;
+  
   $.get("/user", function (data) {
-    console.log(data);
+    // console.log(data);
     for (let i = 0; i < data.length; i++) {
       let row = $("<tr>");
+      row.append("<td>" + data[i].id);
       row.append("<td>" + data[i].createdAt);
       row.append("<td>" + "$" + data[i].expenses);
       row.append("<td>" + data[i].notes);
@@ -157,6 +179,20 @@ function sumbitExp() {
       row.append("<button class='btn deleteExp'>Delete</button>");
       $("#expTable").append(row);
       total+=data[i].expenses;
+
+      // Graph Variables
+      if (data[i].category === "Bills") {
+        entertainmentTotal += data[i].expenses
+        console.log("enter" + entertainmentTotal);
+      }
+      else if (data[i].category === "Entertainment") {
+        billsTotal += data[i].expenses
+        console.log("bills" + billsTotal);
+      }
+      else {
+        foodTotal += data[i].expenses
+        console.log("Food" +foodTotal);
+      };
     }
     bal=income-total;
     $("#total").text("Total: $"+total);
@@ -185,9 +221,10 @@ function changeIncome() {
 
 
 //Delete expense from table
-//STILL NOT WORKING AS OF RN
-$('#expTable').on('click', "button", function () {
-  console.log("clicked");
-  deleteEntry(this);
+$('#expTable').on('click', "button", function (data) {
+  let parentPost = $(this).parent()
+  let id = parentPost[0].innerText.charAt(0);
+  // console.log(id);
+  deleteEntry(id);
 });
 
