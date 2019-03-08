@@ -35,3 +35,12 @@ a:hover {
   float: right;
   padding: 5px;
 }
+
+#graphModal {
+  width: 60%;
+  height: auto;
+}
+
+#myDiv {
+  justify-content: center;
+}

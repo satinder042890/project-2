@@ -15,6 +15,9 @@
     crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <!-- Numeric JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
   <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
@@ -22,7 +25,7 @@
   <nav class="colornav">
     <div class="nav-wrapper container">
       <button class="sidenav-trigger" data-target="slide-out"><i class="fas fa-bars"></i></button>
-      <a href="indextest.html" class="brand-logo">Budgetter</a>
+      <a href="#!" class="brand-logo">Budgetter</a>
       <ul class="right hide-on-med-and-down">
         <li><a class="waves-effect" href="/">Logout</a></li>
         <a class='dropdown-trigger btn' href='#' data-target='dropdown1' id="dd1">Personalize</a>
@@ -90,7 +93,7 @@
   </div>
 
 
-
+<!-- update income modal -->
   <div id="updateIncomeModal" class="modal">
     <div class="modal-content">
       <h4>Update Monthly Income</h4>
@@ -110,41 +113,58 @@
     </div>
   </div>
 
+<!-- graph modal -->
+  <div id="graphModal" class="modal">
+      <div class="modal-content">
+        <h4>Monthly Income</h4>
+        <div class="container">
+            <div id="myDiv"><!-- Plotly chart will be drawn inside this DIV --></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="incomeUpdation">Submit</a>
+      </div>
+    </div>
+
 
 
   <div id="content">
-    <div class="jumbotron container" id="jumbo">
+    <div class="container">
+    <div class="jumbotron" id="jumbo">
       <h3>Welcome to Budgetter</h3>
       <br>
       <div class="divider"></div>
       <br>
       <h5>Use the menu to the left to choose what you want to do.</h5>
     </div>
+  </div>
 
     <!-- Expense tables -->
     <div class="container" id="showexpenses">
       <div class="container">
-      <h2>Expenses</h2>
-      <br>
-      <div id="details" class="z-depth-2">
-            <h5 id="inc" class="col s4"></h5>
-            <h5 id="total" class="col s4">Total: $0</h5>
-            <h5 id="Bal" class="col s4"></h5>
-            </div>
+        <h2>Expenses</h2>
+        <br>
+        <div id="details" class="z-depth-2">
+          <h5 id="inc" class="col s4"></h5>
+          <h5 id="total" class="col s4">Total: $0</h5>
+          <h5 id="Bal" class="col s4"></h5>
+        </div>
       </div>
       <button class="btn modal-trigger" href="#modal1">Enter New Expenses</button>
       <a class='dropdown-trigger btn' href='#' data-target='dropdown2'>Date</a>
       <ul id='dropdown2' class='dropdown-content'>
-        <li><a href="#!">Weekly</a></li>
-        <li><a href="#!">Monthly</a></li>
-        <li><a href="#!">Yearly</a></li>
+        <li><a href="#!">This Week</a></li>
+        <li><a href="#!">This Month</a></li>
+        <li><a href="#!">This Year</a></li>
       </ul>
       <a class='dropdown-trigger btn' href='#' data-target='dropdown3'>Category</a>
       <ul id='dropdown3' class='dropdown-content'>
-        <li><a href="#!">Bills</a></li> 
+        <li><a href="#!">Bills</a></li>
         <li><a href="#!">Food</a></li>
         <li><a href="#!">Entertainment</a></li>
       </ul>
+      <button class="modal-trigger btn" href="#graphModal" id="viewGraph">View Graph</button>
+      
       <table>
         <thead>
           <tr>
@@ -157,17 +177,18 @@
           </tr>
         </thead>
         <tbody id="expTable">
-          
+
         </tbody>
       </table>
       <br><br>
     </div>
-
+    
   </div>
 </body>
 
 <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 <script src="js/materialize.min.js"></script>
 <script src="js/index.js"></script>
+<script src="plotly-latest.min.js"></script>
 
 </html>
