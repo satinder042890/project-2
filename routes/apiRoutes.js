@@ -126,7 +126,7 @@ module.exports = function (app) {
 
   //DELETE an expense
   //STILL NOT WORKING AS OF RN
-  app.delete("/user/income/:id", function(req, res) {
+  app.delete("/api/user/income/:id", function(req, res) {
     db.income.destroy({
       where: {
         id: req.params.id

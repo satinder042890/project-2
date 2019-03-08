@@ -87,7 +87,7 @@ var category = $('#expCategory').val();
 function deleteEntry(id) {
   $.ajax({
       method: "DELETE",
-      url: "/user/" + req.user //*******/
+      url:"/api/user/income/" + id //*******/
     })
     .then(function () {
       getExpenses();
