@@ -159,9 +159,9 @@ function sumbitExp() {
       total+=data[i].expenses;
     }
     bal=income-total;
-    $("#total").text("Total = "+total);
-    $("#Bal").text("Balance = "+bal);
-    $("#inc").text("Monthly Income = "+income);
+    $("#total").text("Total: $"+total);
+    $("#Bal").text("Balance: $"+bal);
+    $("#inc").text("Monthly Income: $"+income);
   })
 };
 
