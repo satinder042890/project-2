@@ -41,6 +41,9 @@ $(document).ready(function () {
   $('.modal').modal();
   $('select').formSelect();
   $('#showexpenses').hide();
+  $('#viewGraph').on('click',function (){
+    graph();
+  })
 
   
 
@@ -129,12 +132,28 @@ function sumbitExp() {
   }
 };
 
+// Graph
+var entertainmentTotal = 0;
+var billsTotal = 0;
+var foodTotal = 0;
+
+function graph () {
+var data = [{
+  values: [entertainmentTotal, billsTotal, foodTotal],
+  labels: ['Bills', 'Entertainment', 'Food'],
+  type: 'pie'
+}];
+
+Plotly.newPlot('myDiv', data, {}, {showSendToCloud:true});
+};
+
 //Show Expenses
  function viewExpenses() {
   $('#jumbo').hide();
   $('#showexpenses').show();
   $('#expTable').empty();
   var total=0;
+  
   $.get("/user", function (data) {
     // console.log(data);
     for (let i = 0; i < data.length; i++) {
@@ -147,6 +166,20 @@ function sumbitExp() {
       row.append("<button class='btn deleteExp' data-name="+data[i].id+">Delete</button>");
       $("#expTable").append(row);
       total+=data[i].expenses;
+
+      // Graph Variables
+      if (data[i].category === "Bills") {
+        entertainmentTotal += data[i].expenses
+        console.log("enter" + entertainmentTotal);
+      }
+      else if (data[i].category === "Entertainment") {
+        billsTotal += data[i].expenses
+        console.log("bills" + billsTotal);
+      }
+      else {
+        foodTotal += data[i].expenses
+        console.log("Food" +foodTotal);
+      };
     }
     bal=income-total;
     $("#total").text("Total: $"+total);
