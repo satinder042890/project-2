@@ -85,12 +85,14 @@ var category = $('#expCategory').val();
 
 //delete function******
 function deleteEntry(id) {
+  console.log(id);
   $.ajax({
-      method: "DELETE",
-      url:"/api/user/income/" + id //*******/
-    })
-    .then(function () {
-      getExpenses();
+    method: "DELETE",
+    url: "/api/user/income/" + id//*******/
+  })
+    .then(function() {
+      // getExpenses();
+      viewExpenses();
     });
 };
 
@@ -148,11 +150,16 @@ function sumbitExp() {
   $('#expTable').empty();
   var total=0;
   $.get("/user", function (data) {
-    console.log(data);
+    // console.log(data);
     for (let i = 0; i < data.length; i++) {
       var d=moment(data[i].createdAt).format("dddd, MMMM Do YYYY");
       let row = $("<tr>");
+<<<<<<< HEAD
       row.append("<td>" + d);
+=======
+      row.append("<td>" + data[i].id);
+      row.append("<td>" + data[i].createdAt);
+>>>>>>> 74abb17762ee3e5cc6f5ca14849c89dc16c3e30b
       row.append("<td>" + "$" + data[i].expenses);
       row.append("<td>" + data[i].notes);
       row.append("<td>" + data[i].category);
@@ -187,9 +194,10 @@ function changeIncome() {
 
 
 //Delete expense from table
-//STILL NOT WORKING AS OF RN
-$('#expTable').on('click', "button", function () {
-  console.log("clicked");
-  deleteEntry(this);
+$('#expTable').on('click', "button", function (data) {
+  let parentPost = $(this).parent()
+  let id = parentPost[0].innerText.charAt(0);
+  // console.log(id);
+  deleteEntry(id);
 });
 
