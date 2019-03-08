@@ -33,17 +33,8 @@ function newUserDetails(){
       $.ajax("/signup/post",{
           type:"POST",
           data:newUser
-<<<<<<< HEAD
-      }).then(function(err){
-        if (!err){
-            alert("NEW USER CREATED YAY")
-        }
-        
-        console.log("TEST")
-=======
       }).then(function(){
            alert("you are successfuly registered");
->>>>>>> 32a1dfdae922042470e5f335c7ea4356876250e3
       })  
     }
 
