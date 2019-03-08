@@ -3,9 +3,6 @@ $(document).ready(function(){
 })
 //function to store new user details.
 function checkAuthentication(){
-    
-    // var pwd=$("#password").val();
-    // var username=$("#username").val();
     if(($("#username").val()) === ""){
         alert("please enter valid username");
     } 
@@ -24,7 +21,9 @@ function checkAuthentication(){
            console.log("login successfull");
            window.location.replace(data);
       }).catch(function(err) {
-        console.log(err);
+        $("#username").val("");
+        $("#password").val("");
+        alert("Invalid Username Or Password");
       });
 
     }

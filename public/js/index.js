@@ -213,9 +213,10 @@ function sumbitExp() {
       type: "POST",
       data: newExpense
     }).then(function (data) {
+      $("#addexpense-amount").val("");
+      $("#addexpense-note").val("");
       alert("New Expense is added to your account");
       viewExpenses();
-      //  location.reload();
     })
   }
 };
@@ -243,7 +244,6 @@ function viewExpenses() {
   var total = 0;
 
   $.get("/user", function (data) {
-    // console.log(data);
     for (let i = 0; i < data.length; i++) {
       date = moment(data[i].createdAt).format("dddd, MMMM Do YYYY");
       let row = $("<tr>");
