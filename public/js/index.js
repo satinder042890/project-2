@@ -99,7 +99,7 @@ function displayDateData(data, userChoice, startDate) {
       total += data[i].expenses;
     }
   }
-  $("#total").text(userChoice + " Total = " + total);
+  $("#total").text(userChoice + " Total: $ " + total);
 }
 
 
@@ -117,7 +117,7 @@ function displayData(data, choice) {
     $("#expTable").append(row);
     total += data[i].expenses;
   }
-  $("#total").text(choice + " Total = " + total);
+  $("#total").text(choice + " Total: $" + total);
 }
 
 
