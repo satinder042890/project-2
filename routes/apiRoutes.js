@@ -21,7 +21,7 @@ module.exports = function (app) {
 
     // POST route for saving a new post
     app.post("/signup/post", function (req, res) {
-        
+        console.log(req.body)
         db.userSignUp.create({
             userName: req.body.username,
             password: req.body.password,
